@@ -1,0 +1,49 @@
+[
+  {
+    "Name": "Magic Burger",
+    "Price": 12.50,
+    "IsVege": false
+  },
+  {
+    "Name": "Sea Burger",
+    "Price": 14.50,
+    "IsVege": true
+  },
+  {
+    "Name": "Ship Burger",
+    "Price": 16.50,
+    "IsVege": false
+  },
+  {
+    "Name": "Bacon XL",
+    "Price": 21.00,
+    "IsVege": false
+  },
+  {
+    "Name": "Bacon Burger",
+    "Price": 17.50,
+    "IsVege": false
+  },
+  {
+    "Name": "Cheese Burger",
+    "Price": 18.50,
+    "IsVege": false
+  },
+  {
+    "Name": "Goat Burger",
+    "Price": 15.00,
+    "IsVege": true
+  },
+  {
+    "Name": "Fish Burger",
+    "Price": 13.00,
+    "IsVege": true
+  },
+  {
+    "Name": "Vege Burger",
+    "Price": 11.50,
+    "IsVege": true
+  }
+]
+  
+

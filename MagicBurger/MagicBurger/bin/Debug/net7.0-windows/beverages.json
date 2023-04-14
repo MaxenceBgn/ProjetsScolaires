@@ -1,0 +1,37 @@
+[
+  {
+    "Name": "Café",
+    "Price": 3.50,
+    "IsSoda": false
+  },
+  {
+    "Name": "Thé",
+    "Price": 3.50,
+    "IsSoda": false
+  },
+  {
+    "Name": "Coktail",
+    "Price": 3.50,
+    "IsSoda": false
+  },
+  {
+    "Name": "Chocolat tiède",
+    "Price": 4.50,
+    "IsSoda": false
+  },
+  {
+    "Name": "Ace-Tei",
+    "Price": 2.50,
+    "IsSoda": true
+  },
+  {
+    "Name": "Caco-Calo",
+    "Price": 3.50,
+    "IsSoda": true
+  },
+  {
+    "Name": "8Down",
+    "Price": 2.80,
+    "IsSoda": true
+  }
+]
