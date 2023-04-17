@@ -93,6 +93,9 @@ namespace MagicBurger
             DisplayOrder();
         }
 
+        /// <summary>
+        /// Quitte la page de confirmation pour retourner à la commande en cours
+        /// </summary>
         private void CancelOrder_Click(object sender, RoutedEventArgs e)
         {
             MainWindow orderMainWindow = new MainWindow(ActualOrder);
@@ -101,6 +104,9 @@ namespace MagicBurger
             Close();
         }
 
+        /// <summary>
+        /// Confirme et valide la commande, puis retourne sur le menu principal
+        /// </summary>
         private void ValidateOrder_Click(object sender, RoutedEventArgs e)
         {
             Order newOrder = new Order(1, new List<Item>() { }, 0);

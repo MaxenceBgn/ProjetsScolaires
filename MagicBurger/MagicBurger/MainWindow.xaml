@@ -35,7 +35,7 @@
             </WrapPanel>
 
             <Button Grid.Column="1" HorizontalAlignment="Left" Height="54" Margin="230,15,0,0" VerticalAlignment="Top" Width="29" Grid.RowSpan="2" Background="Transparent" Click="Button_Click_BurgerMenu">
-                <Image Source="Ressources/logo_burger_menu.webp"/>
+                <Image Source="Ressources/logo_burger_menu.png"/>
             </Button>
 
             <Button Grid.Column="1" HorizontalAlignment="Left" Height="54" Margin="275,15,0,0" VerticalAlignment="Top" Width="27" Grid.RowSpan="2" Background="Transparent" Click="Button_Click_SodaMenu">

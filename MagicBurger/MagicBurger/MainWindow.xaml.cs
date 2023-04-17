@@ -31,6 +31,9 @@ namespace MagicBurger
             InitializeWindow();
         }
 
+        /// <summary>
+        /// Initialise toutes les pages MainWindow
+        /// </summary>
         private void InitializeWindow()
         {
             InitializeComponent();

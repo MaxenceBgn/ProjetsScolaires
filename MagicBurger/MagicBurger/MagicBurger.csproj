@@ -15,7 +15,7 @@
     <None Remove="Ressources\cart.png" />
     <None Remove="Ressources\icon_cross_order.png" />
     <None Remove="Ressources\logo.jfif" />
-    <None Remove="Ressources\logo_burger_menu.webp" />
+    <None Remove="Ressources\logo_burger_menu.png" />
     <None Remove="Ressources\logo_soda_menu.png" />
   </ItemGroup>
 
@@ -41,7 +41,7 @@
     <Resource Include="Ressources\logo.jfif">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Ressources\logo_burger_menu.webp">
+    <Resource Include="Ressources\logo_burger_menu.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Ressources\logo_soda_menu.png">
