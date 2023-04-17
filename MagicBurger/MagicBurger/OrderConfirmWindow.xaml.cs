@@ -16,7 +16,8 @@ namespace MagicBurger
 {
     public partial class OrderConfirmWindow : Window
     {
-        public Order ActualOrder { get; set; }
+        private Order ActualOrder { get; set; }
+
         public OrderConfirmWindow(Order actualOrder)
         {
             ActualOrder = actualOrder;
@@ -28,7 +29,7 @@ namespace MagicBurger
         /// <summary>
         /// Affiche le récapitulatif total de la commande
         /// </summary>
-        public void DisplayOrder()
+        private void DisplayOrder()
         {
             foreach (Item item in ActualOrder.Items)
             {
@@ -74,7 +75,7 @@ namespace MagicBurger
         /// <summary>
         /// Supprime un item du récapitulatif avant validation de commande
         /// </summary>
-        public void DeleteItemFromConfirmOrderPanel(Item itemToDelete, FrameworkElement sender)
+        private void DeleteItemFromConfirmOrderPanel(Item itemToDelete, FrameworkElement sender)
         {
             ActualOrder.Items.Remove(itemToDelete);
             ActualOrder.TotalPrice -= itemToDelete.Price;
@@ -85,6 +86,9 @@ namespace MagicBurger
             WrapPanel? parentParentParentFr = parentParentFr?.Parent as WrapPanel;
 
             parentParentParentFr?.Children.Remove(parentFr);
+
+            WrapPanel_body.Children.Clear();
+            DisplayOrder();
         }
     }
 }
