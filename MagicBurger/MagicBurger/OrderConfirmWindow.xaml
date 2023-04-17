@@ -24,7 +24,7 @@
             </WrapPanel>
 
             <Image HorizontalAlignment="Left" Height="58" Margin="38,0,0,0" VerticalAlignment="Center" Width="116" Source="Ressources/logo.jfif" Grid.ColumnSpan="2"/>
-            <Button Grid.Column="1" Content=" Valider " HorizontalAlignment="Left" Margin="220,301,0,0" Grid.Row="1" VerticalAlignment="Top" Background="Green" Foreground="White"/>
+            <Button Grid.Column="1" Content=" Valider " HorizontalAlignment="Left" Margin="220,301,0,0" Grid.Row="1" VerticalAlignment="Top" Background="Green" Foreground="White" Click="ValidateOrder_Click"/>
             <Button Grid.Column="1" Content=" Annuler " HorizontalAlignment="Left"  Margin="272,301,0,0" Grid.Row="1" VerticalAlignment="Top" Background="DarkRed" Foreground="White" Click="CancelOrder_Click"/>
             <Image Grid.Column="1" HorizontalAlignment="Left" Height="35" Margin="253,240,0,0" Grid.Row="1" VerticalAlignment="Top" Width="35" Source="Ressources/cart.png" RenderTransformOrigin="1.277,0.703"/>
             <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="256,280,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0.00 €" VerticalAlignment="Top" RenderTransformOrigin="1.195,0.625" x:Name="textBlock_TotalPrice"/>

@@ -95,10 +95,19 @@ namespace MagicBurger
 
         private void CancelOrder_Click(object sender, RoutedEventArgs e)
         {
-            var orderMainWindow = new MainWindow(ActualOrder);
+            MainWindow orderMainWindow = new MainWindow(ActualOrder);
             orderMainWindow.Show();
 
-            this.Close();
+            Close();
+        }
+
+        private void ValidateOrder_Click(object sender, RoutedEventArgs e)
+        {
+            Order newOrder = new Order(1, new List<Item>() { }, 0);
+            MainWindow orderMainWindow = new MainWindow(newOrder);
+            orderMainWindow.Show();
+            Close();
+            MessageBox.Show("Vous venez de valider votre dinguerie de commande");
         }
     }
 }
