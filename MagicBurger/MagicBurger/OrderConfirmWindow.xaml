@@ -19,11 +19,13 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <WrapPanel Grid.Row="1" x:Name="WrapPanel_body" Grid.ColumnSpan="3" Margin="133,0,133,46"/>
+            <WrapPanel Grid.Row="1" x:Name="WrapPanel_body" Grid.ColumnSpan="3" Margin="133,0,133,46">
+                
+            </WrapPanel>
 
             <Image HorizontalAlignment="Left" Height="58" Margin="38,0,0,0" VerticalAlignment="Center" Width="116" Source="Ressources/logo.jfif" Grid.ColumnSpan="2"/>
             <Button Grid.Column="1" Content=" Valider " HorizontalAlignment="Left" Margin="220,301,0,0" Grid.Row="1" VerticalAlignment="Top" Background="Green" Foreground="White"/>
-            <Button Grid.Column="1" Content=" Annuler " HorizontalAlignment="Left" Margin="272,301,0,0" Grid.Row="1" VerticalAlignment="Top" Background="DarkRed" Foreground="White"/>
+            <Button Grid.Column="1" Content=" Annuler " HorizontalAlignment="Left"  Margin="272,301,0,0" Grid.Row="1" VerticalAlignment="Top" Background="DarkRed" Foreground="White"/>
         </Grid>
     </Grid>
 </Window>

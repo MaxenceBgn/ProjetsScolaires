@@ -49,8 +49,8 @@ namespace MagicBurger
 
         private void Button_Click_Order(object sender, RoutedEventArgs e)
         {
-            var window = new OrderConfirmWindow();
-            window.Show();
+            var orderWindow = new OrderConfirmWindow(ActualOrder);
+            orderWindow.Show();
         }
     }
 }
