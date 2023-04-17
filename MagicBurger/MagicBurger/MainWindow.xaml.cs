@@ -20,21 +20,30 @@ namespace MagicBurger
         public Database ActualDatabase { get; set; } = new Database();
         public Order ActualOrder { get; set; } = new Order(1, new List<Item>() { }, 0);
 
-        public MainWindow(Database actualdatabase, Order actualOrder)
+        public MainWindow(Order actualOrder)
         {
-            ActualDatabase = actualdatabase;
             ActualOrder = actualOrder;
+            InitializeWindow();
         }
 
         public MainWindow()
         {
-            //Initialisation
+            InitializeWindow();
+        }
+
+        private void InitializeWindow()
+        {
             InitializeComponent();
+            TextBlock_DisplayedPrice.Text = $"{ActualOrder.TotalPrice} €";
             Files jsonBurgers = new Files("burgers.json");
             Files jsonBeverages = new Files("beverages.json");
             ActualDatabase.InitialiseDB(jsonBurgers, jsonBeverages);
 
             Burger.DisplayAllBurgers(ActualDatabase, WrapPanel_body, ActualOrder, TextBlock_DisplayedPrice, WrapPanel_order);
+            foreach (Item item in ActualOrder.Items)
+            {
+                ActualOrder.DiplayItemOrdered(item, WrapPanel_CartPanel, TextBlock_DisplayedPrice);
+            }
         }
 
         private void Button_Click_SodaMenu(object sender, RoutedEventArgs e)
@@ -49,8 +58,10 @@ namespace MagicBurger
 
         private void Button_Click_Order(object sender, RoutedEventArgs e)
         {
-            var orderWindow = new OrderConfirmWindow(ActualOrder);
+            var orderWindow = new OrderConfirmWindow(ActualOrder, ActualDatabase);
             orderWindow.Show();
+
+            this.Close();
         }
     }
 }

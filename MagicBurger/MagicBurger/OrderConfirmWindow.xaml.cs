@@ -17,13 +17,15 @@ namespace MagicBurger
     public partial class OrderConfirmWindow : Window
     {
         private Order ActualOrder { get; set; }
+        private Database ActualDataBase { get; set; }
 
-        public OrderConfirmWindow(Order actualOrder)
+        public OrderConfirmWindow(Order actualOrder, Database actualDataBase)
         {
             ActualOrder = actualOrder;
             InitializeComponent();
 
             DisplayOrder();
+            ActualDataBase = actualDataBase;
         }
 
         /// <summary>
@@ -89,6 +91,14 @@ namespace MagicBurger
 
             WrapPanel_body.Children.Clear();
             DisplayOrder();
+        }
+
+        private void CancelOrder_Click(object sender, RoutedEventArgs e)
+        {
+            var orderMainWindow = new MainWindow(ActualOrder);
+            orderMainWindow.Show();
+
+            this.Close();
         }
     }
 }
