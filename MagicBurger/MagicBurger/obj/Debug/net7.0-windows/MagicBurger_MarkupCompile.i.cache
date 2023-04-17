@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 C:\Users\Maxence Bourgin\OneDrive\Bureau\Repo projets scolaires\ProjetsScolaires\MagicBurger\MagicBurger\App.xaml
-11407045341
+2-832520227
 
-11-850543562
+12-2037277543
 1981827736222
-MainWindow.xaml;
+MainWindow.xaml;OrderConfirmWindow.xaml;
 
-False
+True
 

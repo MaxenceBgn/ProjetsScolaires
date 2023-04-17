@@ -78,79 +78,76 @@ namespace MagicBurger
             displayedPrice.Text = TotalPrice.ToString() + " €";
         }
 
-        /// <summary>
-        /// Affichage du menu de confirmation de commande
-        /// </summary>
-        public void ConfirmOrder(WrapPanel wrapPanelBody, WrapPanel cartPanel)
-        {
-            wrapPanelBody.Children.Clear();
-            cartPanel.Children.Clear();
+        ///// <summary>
+        ///// Affichage du menu de confirmation de commande
+        ///// </summary>
+        //public void ConfirmOrder(WrapPanel wrapPanelBody, WrapPanel cartPanel)
+        //{
+        //    wrapPanelBody.Children.Clear();
+        //    cartPanel.Children.Clear();
 
-            TextBlock displayedPrice = new TextBlock();
-            TextBlock textBlock_Confirm = new TextBlock();
-            textBlock_Confirm.Text = "Veuillez vérifer et confirmer votre commande : ";
+        //    TextBlock displayedPrice = new TextBlock();
+        //    TextBlock textBlock_Confirm = new TextBlock();
+        //    textBlock_Confirm.Text = "Veuillez vérifer et confirmer votre commande : ";
 
-            StackPanel stackPanel_bodyContent = new StackPanel();
-            stackPanel_bodyContent.Orientation = Orientation.Vertical;
-            stackPanel_bodyContent.Margin = new Thickness(0, 30, 0, 30);
-            stackPanel_bodyContent.Children.Add(textBlock_Confirm);
+        //    StackPanel stackPanel_bodyContent = new StackPanel();
+        //    stackPanel_bodyContent.Orientation = Orientation.Vertical;
+        //    stackPanel_bodyContent.Margin = new Thickness(0, 30, 0, 30);
+        //    stackPanel_bodyContent.Children.Add(textBlock_Confirm);
 
 
-            foreach (Item item in Items)
-            {
-                StackPanel stackPanel = new StackPanel();
+        //    foreach (Item item in Items)
+        //    {
+        //        StackPanel stackPanel = new StackPanel();
 
-                TextBlock nameItem = new TextBlock();
-                TextBlock priceItem = new TextBlock();
-                nameItem.Text = $"{item.Name}   ";
-                nameItem.FontWeight = FontWeights.Bold;
-                priceItem.Text = item.Price.ToString();
+        //        TextBlock nameItem = new TextBlock();
+        //        TextBlock priceItem = new TextBlock();
+        //        nameItem.Text = $"{item.Name}   ";
+        //        nameItem.FontWeight = FontWeights.Bold;
+        //        priceItem.Text = item.Price.ToString();
 
-                Image itemImage = new Image();
-                BitmapImage bi = new BitmapImage();
-                bi.BeginInit();
-                bi.UriSource = new Uri("Ressources/icon_cross_order.png", UriKind.Relative);
-                bi.EndInit();
-                itemImage.Source = bi;
-                itemImage.Width = 15;
-                itemImage.Margin = new Thickness(5, 0, 5, 0);
+        //        Image itemImage = new Image();
+        //        BitmapImage bi = new BitmapImage();
+        //        bi.BeginInit();
+        //        bi.UriSource = new Uri("Ressources/icon_cross_order.png", UriKind.Relative);
+        //        bi.EndInit();
+        //        itemImage.Source = bi;
+        //        itemImage.Width = 15;
+        //        itemImage.Margin = new Thickness(5, 0, 5, 0);
 
-                Button buttonExitOrder = new Button();
-                buttonExitOrder.Content = itemImage;
-                buttonExitOrder.BorderThickness = new Thickness(0);
-                buttonExitOrder.Background = Brushes.Transparent;
-                buttonExitOrder.MouseEnter += (s, e) => { buttonExitOrder.Background = Brushes.Transparent; };
+        //        Button buttonExitOrder = new Button();
+        //        buttonExitOrder.Content = itemImage;
+        //        buttonExitOrder.BorderThickness = new Thickness(0);
+        //        buttonExitOrder.Background = Brushes.Transparent;
+        //        buttonExitOrder.MouseEnter += (s, e) => { buttonExitOrder.Background = Brushes.Transparent; };
                 
-                buttonExitOrder.Click += (sender, e) => { DeleteItemFromConfirmOrderPanel(item, displayedPrice, (FrameworkElement)sender); };
+        //        buttonExitOrder.Click += (sender, e) => { DeleteItemFromConfirmOrderPanel(item, displayedPrice, (FrameworkElement)sender); };
 
-                stackPanel.Children.Add(nameItem);
-                stackPanel.Children.Add(priceItem);
-                stackPanel.Children.Add(buttonExitOrder);
+        //        stackPanel.Children.Add(nameItem);
+        //        stackPanel.Children.Add(priceItem);
+        //        stackPanel.Children.Add(buttonExitOrder);
 
-                stackPanel_bodyContent.Children.Add(stackPanel);
-            }
+        //        stackPanel_bodyContent.Children.Add(stackPanel);
+        //    }
 
-            displayedPrice.Text = TotalPrice.ToString();
-            stackPanel_bodyContent.Children.Add(displayedPrice);
-            wrapPanelBody.Children.Add(stackPanel_bodyContent);
-        }
+        //    displayedPrice.Text = TotalPrice.ToString();
+        //    stackPanel_bodyContent.Children.Add(displayedPrice);
+        //    wrapPanelBody.Children.Add(stackPanel_bodyContent);
+        //}
 
-        /// <summary>
-        /// Supprime un item du récapitulatif avant validation de commande
-        /// </summary>
-        /// <param name="itemToDelete"></param>
-        /// <param name="displayedPrice"></param>
-        /// <param name="sender"></param>
-        public void DeleteItemFromConfirmOrderPanel(Item itemToDelete, TextBlock displayedPrice, FrameworkElement sender)
-        {
-            Items.Remove(itemToDelete);
-            TotalPrice -= itemToDelete.Price;
-            displayedPrice.Text = TotalPrice.ToString() + " €";
+        ///// <summary>
+        ///// Supprime un item du récapitulatif avant validation de commande
+        ///// </summary>
+        //public void DeleteItemFromConfirmOrderPanel(Item itemToDelete, TextBlock displayedPrice, FrameworkElement sender)
+        //{
+        //    Items.Remove(itemToDelete);
+        //    TotalPrice -= itemToDelete.Price;
+        //    displayedPrice.Text = TotalPrice.ToString() + " €";
 
-            FrameworkElement parentFr = sender.Parent as FrameworkElement;
-            StackPanel parentParentFr = parentFr.Parent as StackPanel;
+        //    FrameworkElement parentFr = sender.Parent as FrameworkElement;
+        //    StackPanel parentParentFr = parentFr.Parent as StackPanel;
             
-            parentParentFr.Children.Remove(parentFr);
-        }
+        //    parentParentFr.Children.Remove(parentFr);
+        //}
     }
 }
