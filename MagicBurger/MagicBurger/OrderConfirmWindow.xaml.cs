@@ -56,7 +56,7 @@ namespace MagicBurger
                 buttonExitOrder.Background = Brushes.Transparent;
                 buttonExitOrder.MouseEnter += (s, e) => { buttonExitOrder.Background = Brushes.Transparent; };
 
-                buttonExitOrder.Click += (sender, e) => { DeleteItemFromConfirmOrderPanel(); };
+                buttonExitOrder.Click += (sender, e) => { DeleteItemFromConfirmOrderPanel(item, (FrameworkElement)sender); };
 
                 stackPanel.Children.Add(nameItem);
                 stackPanel.Children.Add(priceItem);
@@ -67,12 +67,24 @@ namespace MagicBurger
                 borderStackPanel.Margin = new Thickness(0,0,10,0);
 
                 WrapPanel_body.Children.Add(borderStackPanel);
+                textBlock_TotalPrice.Text = $"{ActualOrder.TotalPrice} €";
             }
         }
 
-        public void DeleteItemFromConfirmOrderPanel()
+        /// <summary>
+        /// Supprime un item du récapitulatif avant validation de commande
+        /// </summary>
+        public void DeleteItemFromConfirmOrderPanel(Item itemToDelete, FrameworkElement sender)
         {
-            //(item, displayedPrice, (FrameworkElement)sender) liste des paramètres à passer dans la fonction
+            ActualOrder.Items.Remove(itemToDelete);
+            ActualOrder.TotalPrice -= itemToDelete.Price;
+            textBlock_TotalPrice.Text = ActualOrder.TotalPrice.ToString() + " €";
+
+            FrameworkElement? parentFr = sender.Parent as FrameworkElement;
+            Border? parentParentFr = parentFr?.Parent as Border;
+            WrapPanel? parentParentParentFr = parentParentFr?.Parent as WrapPanel;
+
+            parentParentParentFr?.Children.Remove(parentFr);
         }
     }
 }
