@@ -18,6 +18,9 @@ namespace MagicBurger
             Price = price;
         }
 
+        /// <summary>
+        /// Ajoute un item au panier
+        /// </summary>
         public void AddToCart(Order order, TextBlock displayedPrice, WrapPanel wrapPanelOrder)
         {
             order.Items.Add(this);

@@ -25,6 +25,9 @@ namespace MagicBurger
             TotalPrice = totalPrice;
         }
 
+        /// <summary>
+        /// Affiche tous les items commandés dans le récapitualif du panier (droite du menu principal)
+        /// </summary>
         public void DiplayItemOrdered(Item itemToAdd, WrapPanel wrapPanelOrder, TextBlock displayedPrice)
         {
             StackPanel stackPanel = new StackPanel();
@@ -60,6 +63,13 @@ namespace MagicBurger
             wrapPanelOrder.Children.Add(stackPanel);
         }
 
+        /// <summary>
+        /// Supprime un item du panier (droite du menu principal)
+        /// </summary>
+        /// <param name="itemToDelete"></param>
+        /// <param name="stackPanelToDelete"></param>
+        /// <param name="wrapPanelOrder"></param>
+        /// <param name="displayedPrice"></param>
         public void DeleteItemFromOrderPanel(Item itemToDelete, StackPanel stackPanelToDelete, WrapPanel wrapPanelOrder, TextBlock displayedPrice)
         {
             Items.Remove(itemToDelete);
@@ -68,6 +78,9 @@ namespace MagicBurger
             displayedPrice.Text = TotalPrice.ToString() + " €";
         }
 
+        /// <summary>
+        /// Affichage du menu de confirmation de commande
+        /// </summary>
         public void ConfirmOrder(WrapPanel wrapPanelBody, WrapPanel cartPanel)
         {
             wrapPanelBody.Children.Clear();
@@ -122,6 +135,12 @@ namespace MagicBurger
             wrapPanelBody.Children.Add(stackPanel_bodyContent);
         }
 
+        /// <summary>
+        /// Supprime un item du récapitulatif avant validation de commande
+        /// </summary>
+        /// <param name="itemToDelete"></param>
+        /// <param name="displayedPrice"></param>
+        /// <param name="sender"></param>
         public void DeleteItemFromConfirmOrderPanel(Item itemToDelete, TextBlock displayedPrice, FrameworkElement sender)
         {
             Items.Remove(itemToDelete);

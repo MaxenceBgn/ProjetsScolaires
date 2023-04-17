@@ -17,6 +17,9 @@ namespace MagicBurger
             IsSoda = isSoda;
         }
 
+        /// <summary>
+        /// Affiche toutes les boissons disponibles dans le menu de sélection
+        /// </summary>
         public static void DisplayAllBeverages(Database database, WrapPanel wrapPanel, Order actualOrder, TextBlock displayedPrice, WrapPanel wrapPanelOrder)
         {
             wrapPanel.Children.Clear();

@@ -24,6 +24,11 @@ namespace MagicBurger
             Beverages = new List<Beverage>();
         }
 
+        /// <summary>
+        /// Etablie la liste des burgers et des boissons disponibles dans la BDD
+        /// </summary>
+        /// <param name="jsonBurgersFile"></param>
+        /// <param name="jsonBeveragesFile"></param>
         public void InitialiseDB(Files jsonBurgersFile, Files jsonBeveragesFile)
         {
             string jsonString = "";
