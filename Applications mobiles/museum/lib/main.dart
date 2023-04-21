@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: Colors.brown,
                           fontSize: 30,
-                          fontFamily: 'Arial'),
+                          fontFamily: 'Merriweather'),
                     ),
                   ),
                   const Text("Léonard de Vinci")
