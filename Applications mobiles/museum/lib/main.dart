@@ -1,7 +1,9 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class Header extends StatelessWidget implements PreferredSizeWidget {
@@ -26,12 +28,15 @@ class Artwork extends StatefulWidget {
 }
 
 class _ArtworkState extends State<Artwork> {
+  bool isFavorite = false;
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
+    return ListView(children: [
+      Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          Image.asset('assets/images/Mona_Lisa.jpg'),
           Row(
             children: [
               Container(
@@ -66,13 +71,20 @@ class _ArtworkState extends State<Artwork> {
                 children: [Icon(Icons.article)],
               ),
               Column(
-                children: [Icon(Icons.favorite)],
-              )
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.favorite),
+                      Text("55"),
+                    ],
+                  ),
+                ],
+              ),
             ],
           )
         ],
       ),
-    );
+    ]);
   }
 }
 
@@ -82,6 +94,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Application de la Joconde',
       theme: ThemeData(
         primarySwatch: Colors.brown,
