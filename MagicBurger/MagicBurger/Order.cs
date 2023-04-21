@@ -66,10 +66,6 @@ namespace MagicBurger
         /// <summary>
         /// Supprime un item du panier (droite du menu principal)
         /// </summary>
-        /// <param name="itemToDelete"></param>
-        /// <param name="stackPanelToDelete"></param>
-        /// <param name="wrapPanelOrder"></param>
-        /// <param name="displayedPrice"></param>
         public void DeleteItemFromOrderPanel(Item itemToDelete, StackPanel stackPanelToDelete, WrapPanel wrapPanelOrder, TextBlock displayedPrice)
         {
             Items.Remove(itemToDelete);
