@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 
@@ -34,53 +34,81 @@ class _ArtworkState extends State<Artwork> {
   Widget build(BuildContext context) {
     return ListView(children: [
       Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image.asset('assets/images/Mona_Lisa.jpg'),
           Row(
             children: [
-              Container(
-                padding: const EdgeInsets.only(bottom: 4),
-                child: const Text(
-                  "Mona Lisa",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.brown,
-                    fontSize: 30,
-                    fontFamily: 'Merriweather',
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.only(bottom: 4),
+                  child: const Text(
+                    "Mona Lisa",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.brown,
+                      fontSize: 30,
+                      fontFamily: 'Merriweather',
+                    ),
                   ),
                 ),
               ),
             ],
           ),
-          const Row(
+          Row(
             children: [
-              Text(
-                "Léonard de Vinci",
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.brown,
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.only(bottom: 4),
+                  child: const Text(
+                    "Léonard de Vinci",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.brown,
+                    ),
+                  ),
                 ),
-              )
+              ),
             ],
           ),
-          const Row(
-            children: [
-              Column(
-                children: [Icon(Icons.article)],
-              ),
-              Column(
+          Container(
+            margin: EdgeInsets.only(top: 30),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 1,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Icon(Icons.favorite),
-                      Text("55"),
+                      Icon(
+                        Icons.article,
+                        color: Colors.brown,
+                      )
+                    ],
+                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.3),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(Icons.favorite, color: Colors.brown),
+                          Text(
+                            "55",
+                            style: TextStyle(color: Colors.brown),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ],
               ),
-            ],
+            ),
           )
         ],
       ),
