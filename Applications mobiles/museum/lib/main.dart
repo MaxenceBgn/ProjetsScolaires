@@ -30,19 +30,33 @@ class Artwork extends StatefulWidget {
 class _ArtworkState extends State<Artwork> {
   bool isFavorite = false;
   int numberOfLikes = 55;
+  String alertText = "";
+  Color alertColor = Colors.white;
 
   void _clickOnFavorite() {
     if (isFavorite == true) {
       setState(() {
         isFavorite = false;
         numberOfLikes--;
+        alertText = "Oeuvre supprimée de vos favoris.";
+        alertColor = Colors.red;
       });
     } else {
       setState(() {
         isFavorite = true;
         numberOfLikes++;
+        alertText = "Oeuvre ajoutée à vos favoris.";
+        alertColor = Colors.green;
       });
     }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(alertText),
+        duration: const Duration(seconds: 2),
+        backgroundColor: alertColor,
+      ),
+    );
   }
 
   @override
@@ -170,9 +184,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.brown,
       ),
-      home: const Scaffold(
-        appBar: Header(),
-        body: Artwork(),
+      home: ScaffoldMessenger(
+        child: Scaffold(
+          appBar: Header(),
+          body: Artwork(),
+        ),
       ),
     );
   }
