@@ -29,6 +29,21 @@ class Artwork extends StatefulWidget {
 
 class _ArtworkState extends State<Artwork> {
   bool isFavorite = false;
+  int numberOfLikes = 55;
+
+  void _clickOnFavorite() {
+    if (isFavorite == true) {
+      setState(() {
+        isFavorite = false;
+        numberOfLikes--;
+      });
+    } else {
+      setState(() {
+        isFavorite = true;
+        numberOfLikes++;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +59,14 @@ class _ArtworkState extends State<Artwork> {
                 left: 0,
                 right: 0,
                 child: IconButton(
-                  icon: Icon(Icons.favorite,
-                      color: Colors.white.withOpacity(0.75), size: 100),
-                  onPressed: () {
-                    // Code à exécuter lorsque l'utilisateur appuie sur l'icône
-                  },
-                ),
+                    icon: Icon(Icons.favorite,
+                        color: isFavorite
+                            ? Colors.red
+                            : Colors.white.withOpacity(0.35),
+                        size: 100),
+                    onPressed: () {
+                      _clickOnFavorite();
+                    }),
               ),
             ],
           ),
@@ -114,10 +131,19 @@ class _ArtworkState extends State<Artwork> {
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.favorite, color: Colors.brown),
+                          IconButton(
+                              onPressed: () {
+                                _clickOnFavorite();
+                              },
+                              icon: Icon(
+                                Icons.favorite,
+                                color: isFavorite ? Colors.red : Colors.brown,
+                              )),
                           Text(
-                            "55",
-                            style: TextStyle(color: Colors.brown),
+                            numberOfLikes.toString(),
+                            style: TextStyle(
+                              color: isFavorite ? Colors.red : Colors.brown,
+                            ),
                           ),
                         ],
                       ),
