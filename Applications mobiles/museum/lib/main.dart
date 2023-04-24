@@ -35,7 +35,24 @@ class _ArtworkState extends State<Artwork> {
     return ListView(children: [
       Column(
         children: [
-          Image.asset('assets/images/Mona_Lisa.jpg'),
+          Stack(
+            children: [
+              Image.asset('assets/images/Mona_Lisa.jpg'),
+              Positioned(
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: IconButton(
+                  icon: Icon(Icons.favorite,
+                      color: Colors.white.withOpacity(0.75), size: 100),
+                  onPressed: () {
+                    // Code à exécuter lorsque l'utilisateur appuie sur l'icône
+                  },
+                ),
+              ),
+            ],
+          ),
           Row(
             children: [
               Expanded(
