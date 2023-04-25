@@ -115,12 +115,9 @@ class _ArtworkState extends State<Artwork> {
                 child: Container(
                   width: 300,
                   height: 350,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Positioned(
-                      child: Container(
-                        width: 300,
-                        height: 350,
+                  child: Column(
+                    children: [
+                      Expanded(
                         child: SingleChildScrollView(
                           child: Text(
                             _articleText,
@@ -129,7 +126,7 @@ class _ArtworkState extends State<Artwork> {
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ),
