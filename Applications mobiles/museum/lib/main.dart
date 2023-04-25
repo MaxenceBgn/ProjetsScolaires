@@ -38,6 +38,9 @@ class _ArtworkState extends State<Artwork> {
       "La Joconde, ou portrait de Mona Lisa, est un tableau de l'artiste Léonard de Vinci, réalisé entre 1503 et 1506 ou entre 1513 et 1516, et peut être jusqu'à 1517 (l'artiste étant mort le 2 mai 1519), qui représente un portrait mi-corps, probablement celui de la Florentine Lisa Gherardini, épouse de Francesco del Giocondo. Acquise par François Ier, cette peinture à l'huile sur panneau de bois de peuplier de 77 x 53cm est exposée au musée du Louvres à Paris. La Joconde est l'un des rares tableaux attribués de façon certaine à Léonard de Vinci. \n\nLa Joconde est devenue un tableau éminemment célèbre car, depuis sa réalisation, nombre d'artistes l'ont pris comme référence. A l'époque romantique, les artistes ont été fascinés par ce tableau et ont contribués à développer le mythe qui l'entoure, en faisant de ce tableau l'une des oeuvres d'art les plus célèbres au monde, si ce n'est la plus célèbre : elle est en tout cas considérée comme l'une des représentations d'un visage féminin les plus célèbres au monde. Au XXie siècle, elle est devenue l'objet d'art le plus visité au monde, devant le Diamant Hope, avec 20 000 visiteurs qui viennent l'admirer et la photographier quotidiennement.";
   Color articleColor = Colors.transparent;
 
+  Color _colorOfBigFavoriteIconBeforeDisplayArticle = Colors.white;
+  Color _articleIconColor = Colors.brown;
+
   void _displayAlert(String alertText) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -71,11 +74,14 @@ class _ArtworkState extends State<Artwork> {
       setState(() {
         _showDescription = true;
         articleColor = Colors.white;
+        _colorOfBigFavoriteIconBeforeDisplayArticle = articleColor;
+        _articleIconColor = Colors.blue;
       });
     } else {
       setState(() {
         _showDescription = false;
         articleColor = Colors.transparent;
+        _articleIconColor = _colorOfBigFavoriteIconBeforeDisplayArticle;
       });
     }
   }
@@ -183,7 +189,7 @@ class _ArtworkState extends State<Artwork> {
                           },
                           icon: Icon(
                             Icons.article,
-                            color: isFavorite ? Colors.red : Colors.brown,
+                            color: _articleIconColor,
                           )),
                     ],
                   ),
