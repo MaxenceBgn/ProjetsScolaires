@@ -39,6 +39,7 @@ class _ArtworkState extends State<Artwork> {
   Color articleColor = Colors.transparent;
 
   Color _colorOfBigFavoriteIconBeforeDisplayArticle = Colors.white;
+  Color _bigFavoriteIconColor = Colors.white.withOpacity(0.25);
   Color _articleIconColor = Colors.brown;
 
   void _displayAlert(String alertText) {
@@ -57,6 +58,7 @@ class _ArtworkState extends State<Artwork> {
         isFavorite = false;
         numberOfLikes--;
         alertColor = Colors.red;
+        _bigFavoriteIconColor = Colors.white.withOpacity(0.25);
         _displayAlert("Oeuvre supprimée de vos favoris.");
       });
     } else {
@@ -65,6 +67,7 @@ class _ArtworkState extends State<Artwork> {
         numberOfLikes++;
         alertColor = Colors.green;
         _displayAlert("Oeuvre ajoutée à vos favoris.");
+        _bigFavoriteIconColor = Colors.red;
       });
     }
   }
@@ -74,7 +77,8 @@ class _ArtworkState extends State<Artwork> {
       setState(() {
         _showDescription = true;
         articleColor = Colors.white;
-        _colorOfBigFavoriteIconBeforeDisplayArticle = articleColor;
+        _colorOfBigFavoriteIconBeforeDisplayArticle = _bigFavoriteIconColor;
+        _bigFavoriteIconColor = Colors.transparent;
         _articleIconColor = Colors.blue;
       });
     } else {
@@ -82,6 +86,8 @@ class _ArtworkState extends State<Artwork> {
         _showDescription = false;
         articleColor = Colors.transparent;
         _articleIconColor = _colorOfBigFavoriteIconBeforeDisplayArticle;
+        _bigFavoriteIconColor = _colorOfBigFavoriteIconBeforeDisplayArticle;
+        _articleIconColor = Colors.brown;
       });
     }
   }
@@ -101,10 +107,7 @@ class _ArtworkState extends State<Artwork> {
                 right: 0,
                 child: IconButton(
                     icon: Icon(Icons.favorite,
-                        color: isFavorite
-                            ? Colors.red
-                            : Colors.white.withOpacity(0.35),
-                        size: 100),
+                        color: _bigFavoriteIconColor, size: 100),
                     onPressed: () {
                       _clickOnFavorite();
                     }),
