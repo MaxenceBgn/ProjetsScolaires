@@ -8,6 +8,7 @@ namespace MaxouPizza.Pages.Admin
 {
     public class IndexModel : PageModel
     {
+        public bool identifiantsAreNotOk = false;
         public IActionResult OnGet()
         {
             if (HttpContext.User.Identity.IsAuthenticated)
@@ -19,7 +20,7 @@ namespace MaxouPizza.Pages.Admin
 
         public async Task<IActionResult> OnPost(string username, string password, string ReturnUrl)
         {
-            if (username == "admin")
+            if (username == "admin" && password == "ok")
             {
                 var claims = new List<Claim>
                  {
@@ -29,6 +30,10 @@ namespace MaxouPizza.Pages.Admin
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new
                ClaimsPrincipal(claimsIdentity));
                 return Redirect(ReturnUrl == null ? "/Admin/Pizzas" : ReturnUrl);
+            }
+            else
+            {
+                identifiantsAreNotOk = true;
             }
             return Page();
         }
