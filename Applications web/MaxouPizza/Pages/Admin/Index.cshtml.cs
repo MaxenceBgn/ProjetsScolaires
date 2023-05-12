@@ -33,7 +33,7 @@ namespace MaxouPizza.Pages.Admin
             return Page();
         }
 
-        public async Task OnGetLogOut()
+        public async Task<IActionResult> OnGetLogOut()
         {
             await HttpContext.SignOutAsync();
             return Redirect("/Admin");
