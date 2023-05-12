@@ -1,0 +1,53 @@
+﻿@page
+@model MaxouPizza.Pages.Admin.Pizzas.IndexModel
+
+@{
+    ViewData["Title"] = "Liste des pizzas";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-page="Create">Ajouter une nouvelle pizza</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Pizza[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pizza[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pizza[0].Vegetarian)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pizza[0].Ingredients)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Pizza) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vegetarian)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ingredients)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.PizzaID">Modifier</a> |
+                <a asp-page="./Delete" asp-route-id="@item.PizzaID">Supprimer</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

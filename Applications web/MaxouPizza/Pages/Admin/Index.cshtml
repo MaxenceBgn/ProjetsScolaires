@@ -1,0 +1,13 @@
+﻿@page
+@model MaxouPizza.Pages.Admin.IndexModel
+@{
+    ViewData["Title"] = "Authentification au panel d'administration";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post">
+ <input type="text" name="username" placeholder="Login">
+ <input type="password" name="password" placeholder="Mot de passe">
+ <button>Se connecter</button>
+</form>
