@@ -8,8 +8,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _title = "Cc";
+  String _title = "";
   List<int> items = [1, 2, 3, 4, 5, 6];
+  Color _titleColor = Colors.red;
 
   @override
   void initState() {
@@ -19,11 +20,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void updateTitle() {
     if (verifyIfNumberIsPrime(items.length)) {
-      _title = createTitle("Ananas");
+      _title = createTitle("Nombre premier");
+      _titleColor = Colors.amber[800] as Color;
     } else if (items.length % 2 == 0) {
-      _title = createTitle("Poire");
+      _title = createTitle("Nombre pair");
+      _titleColor = Color.fromARGB(255, 82, 179, 17);
     } else {
-      _title = createTitle("Pomme");
+      _title = createTitle("Nombre impair");
+      _titleColor = const Color.fromARGB(255, 151, 23, 13);
     }
   }
 
@@ -54,7 +58,13 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(_title),
+        centerTitle: true,
+        title: Text(
+          _title,
+          style: TextStyle(
+            color: _titleColor,
+          ),
+        ),
       ),
       body: Stack(
         children: [
@@ -95,8 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Align(
             alignment: Alignment.bottomRight,
             child: Padding(
-              padding: const EdgeInsets.only(
-                  right: 30, bottom: 30), // 30 pixels du bord droit et bas
+              padding: const EdgeInsets.only(right: 30, bottom: 30),
               child: ElevatedButton(
                 onPressed: () {
                   setState(() {
@@ -108,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 style: ElevatedButton.styleFrom(
                   shape: const CircleBorder(),
                   padding: const EdgeInsets.all(20),
-                  backgroundColor: Colors.red[400], // <-- Couleur du bouton
+                  backgroundColor: Colors.red[400],
                 ),
                 child: const Icon(Icons.add, color: Colors.white),
               ),
@@ -118,63 +127,4 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     appBar: AppBar(
-  //       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-  //       title: Text(_title),
-  //     ),
-  //     body: SingleChildScrollView(
-  //       child: Column(
-  //         children: [
-  //           ListView.builder(
-  //             shrinkWrap: true,
-  //             itemCount: items.length,
-  //             itemBuilder: (context, index) {
-  //               MaterialColor tileColor;
-  //               if (items[index] % 2 == 0) {
-  //                 tileColor = Colors.blue;
-  //               } else {
-  //                 tileColor = Colors.indigo;
-  //               }
-  //               String asset;
-  //               if (verifyIfNumberIsPrime(items[index])) {
-  //                 asset = "images/ananas.png";
-  //               } else {
-  //                 if (items[index] % 2 == 0) {
-  //                   asset = "images/poire.png";
-  //                 } else {
-  //                   asset = "images/pomme.png";
-  //                 }
-  //               }
-
-  //               return ListTile(
-  //                 tileColor: tileColor,
-  //                 textColor: Colors.white,
-  //                 leading: Image.asset(asset),
-  //                 title: Text(items[index].toString()),
-  //               );
-  //             },
-  //           ),
-  //           ElevatedButton(
-  //             onPressed: () {
-  //               setState(() {
-  //                 int counter = items.length + 1;
-  //                 items.add(counter);
-  //                 updateTitle();
-  //               });
-  //             },
-  //             style: ElevatedButton.styleFrom(
-  //               shape: const CircleBorder(),
-  //               padding: const EdgeInsets.all(20),
-  //               backgroundColor: Colors.red[400], // <-- Button color
-  //             ),
-  //             child: const Icon(Icons.add, color: Colors.white),
-  //           )
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 }
