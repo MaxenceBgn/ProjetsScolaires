@@ -10,32 +10,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String _title = "Cc";
   List<int> items = [1, 2, 3, 4, 5];
-  final List<int> _primeNumber = [
-    2,
-    3,
-    5,
-    7,
-    11,
-    13,
-    17,
-    19,
-    23,
-    29,
-    31,
-    37,
-    41,
-    47,
-    53,
-    59,
-    61,
-    67,
-    71,
-    73,
-    79,
-    83,
-    89,
-    97
-  ];
 
   @override
   void initState() {
@@ -44,12 +18,28 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void updateTitle() {
-    if (_primeNumber.contains(items.length)) {
+    if (verifyIfNumberIsPrime(items.length)) {
       _title = createTitle("Ananas");
     } else if (items.length % 2 == 0) {
       _title = createTitle("Poire");
     } else {
       _title = createTitle("Pomme");
+    }
+  }
+
+  bool verifyIfNumberIsPrime(int numberToVerify) {
+    {
+      if (numberToVerify <= 1) {
+        return false;
+      }
+
+      for (int i = 2; i <= numberToVerify / 2; i++) {
+        if (numberToVerify % i == 0) {
+          return false;
+        }
+      }
+
+      return true;
     }
   }
 
@@ -77,21 +67,21 @@ class _MyHomePageState extends State<MyHomePage> {
               } else {
                 tileColor = Colors.indigo;
               }
-              String _asset;
-              if (_primeNumber.contains(items[index])) {
-                _asset = "images/ananas.png";
+              String asset;
+              if (verifyIfNumberIsPrime(items[index])) {
+                asset = "images/ananas.png";
               } else {
                 if (items[index] % 2 == 0) {
-                  _asset = "images/poire.png";
+                  asset = "images/poire.png";
                 } else {
-                  _asset = "images/pomme.png";
+                  asset = "images/pomme.png";
                 }
               }
 
               return ListTile(
                 tileColor: tileColor,
                 textColor: Colors.white,
-                leading: Image.asset(_asset),
+                leading: Image.asset(asset),
                 title: Text(items[index].toString()),
               );
             },
@@ -104,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 updateTitle();
               });
             },
-            child: Text('Nouveau fruit'),
+            child: const Text('Nouveau fruis'),
           ),
         ],
       ),
