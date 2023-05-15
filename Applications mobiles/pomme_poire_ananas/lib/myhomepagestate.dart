@@ -9,7 +9,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String _title = "Cc";
-  List<int> items = [1, 2, 3, 4, 5];
+  List<int> items = [1, 2, 3, 4, 5, 6];
 
   @override
   void initState() {
@@ -55,48 +55,50 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(_title),
       ),
-      body: Column(
-        children: [
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              MaterialColor tileColor;
-              if (items[index] % 2 == 0) {
-                tileColor = Colors.blue;
-              } else {
-                tileColor = Colors.indigo;
-              }
-              String asset;
-              if (verifyIfNumberIsPrime(items[index])) {
-                asset = "images/ananas.png";
-              } else {
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: items.length,
+              itemBuilder: (context, index) {
+                MaterialColor tileColor;
                 if (items[index] % 2 == 0) {
-                  asset = "images/poire.png";
+                  tileColor = Colors.blue;
                 } else {
-                  asset = "images/pomme.png";
+                  tileColor = Colors.indigo;
                 }
-              }
+                String asset;
+                if (verifyIfNumberIsPrime(items[index])) {
+                  asset = "images/ananas.png";
+                } else {
+                  if (items[index] % 2 == 0) {
+                    asset = "images/poire.png";
+                  } else {
+                    asset = "images/pomme.png";
+                  }
+                }
 
-              return ListTile(
-                tileColor: tileColor,
-                textColor: Colors.white,
-                leading: Image.asset(asset),
-                title: Text(items[index].toString()),
-              );
-            },
-          ),
-          ElevatedButton(
-            onPressed: () {
-              setState(() {
-                int counter = items.length + 1;
-                items.add(counter);
-                updateTitle();
-              });
-            },
-            child: const Text('Nouveau fruis'),
-          ),
-        ],
+                return ListTile(
+                  tileColor: tileColor,
+                  textColor: Colors.white,
+                  leading: Image.asset(asset),
+                  title: Text(items[index].toString()),
+                );
+              },
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  int counter = items.length + 1;
+                  items.add(counter);
+                  updateTitle();
+                });
+              },
+              child: const Text('Nouveau fruit'),
+            ),
+          ],
+        ),
       ),
     );
   }
