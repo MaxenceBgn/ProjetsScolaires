@@ -8,9 +8,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  static String title = "Cc";
+  String _title = "Cc";
   List<int> items = [1, 2, 3, 4, 5];
-  List<int> primeNumber = [
+  final List<int> _primeNumber = [
     2,
     3,
     5,
@@ -36,12 +36,26 @@ class _MyHomePageState extends State<MyHomePage> {
     89,
     97
   ];
-  int counter = 0;
 
   @override
   void initState() {
     super.initState();
-    counter = items.length;
+    updateTitle();
+  }
+
+  void updateTitle() {
+    if (_primeNumber.contains(items.length)) {
+      _title = createTitle("Ananas");
+    } else if (items.length % 2 == 0) {
+      _title = createTitle("Poire");
+    } else {
+      _title = createTitle("Pomme");
+    }
+  }
+
+  String createTitle(String typeToDisplay) {
+    String newTitle = "${items[items.length - 1]}. $typeToDisplay";
+    return newTitle;
   }
 
   @override
@@ -49,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(title),
+        title: Text(_title),
       ),
       body: Column(
         children: [
@@ -57,28 +71,25 @@ class _MyHomePageState extends State<MyHomePage> {
             shrinkWrap: true,
             itemCount: items.length,
             itemBuilder: (context, index) {
-              MaterialColor _tileColor;
+              MaterialColor tileColor;
               if (items[index] % 2 == 0) {
-                _tileColor = Colors.blue;
+                tileColor = Colors.blue;
               } else {
-                _tileColor = Colors.indigo;
+                tileColor = Colors.indigo;
               }
               String _asset;
-              if (primeNumber.contains(items[index])) {
+              if (_primeNumber.contains(items[index])) {
                 _asset = "images/ananas.png";
-                title = "Ananas";
               } else {
                 if (items[index] % 2 == 0) {
                   _asset = "images/poire.png";
-                  title = "Poire";
                 } else {
                   _asset = "images/pomme.png";
-                  title = "Pomme";
                 }
               }
 
               return ListTile(
-                tileColor: _tileColor,
+                tileColor: tileColor,
                 textColor: Colors.white,
                 leading: Image.asset(_asset),
                 title: Text(items[index].toString()),
@@ -90,6 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
               setState(() {
                 int counter = items.length + 1;
                 items.add(counter);
+                updateTitle();
               });
             },
             child: Text('Nouveau fruit'),
