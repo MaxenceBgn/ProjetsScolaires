@@ -19,6 +19,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _isWinner = false;
   String _gameSentance = "Tentez votre chance, lancez la machine...";
   Color _backgroundColor = const Color.fromARGB(255, 43, 42, 42);
+  Color _sentanceColor = Colors.grey;
 
   void _definiteSlotsImages() {
     var rng = Random();
@@ -42,8 +43,10 @@ class _MyHomePageState extends State<MyHomePage> {
       _isWinner = false;
       if (_slot1 == 6) {
         _gameSentance = "Jackpot de 7 !!";
+        _winnerJackpotAnimation();
       } else {
         _gameSentance = "Gagné !";
+        _winnerAnimation();
       }
     } else {
       _gameSentance = "Perdu... Retente ta chance";
@@ -69,8 +72,13 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void _winnerAnimation() {
+  void _winnerJackpotAnimation() {
     _backgroundColor = Colors.yellow[700]!;
+    _sentanceColor = Colors.red[700]!;
+  }
+
+  void _winnerAnimation() {
+    _sentanceColor = Colors.red[700]!;
   }
 
   @override
@@ -101,12 +109,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(height: 50),
                 Text(
                   _gameSentance,
+                  style: TextStyle(color: _sentanceColor),
                 ),
               ],
             ),
           )),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          _backgroundColor = const Color.fromARGB(255, 43, 42, 42);
           _definiteSlotsImages();
           _updateGameSentance();
         },
