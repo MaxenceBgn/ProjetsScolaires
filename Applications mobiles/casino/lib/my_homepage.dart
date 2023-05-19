@@ -85,9 +85,16 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        centerTitle: true,
-        title: Text(widget.title),
+        backgroundColor: Colors.red[900],
+        flexibleSpace: Align(
+          alignment: Alignment.center,
+          child: Text(
+            widget.title,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontFamily: 'Casino', fontSize: 50, color: Colors.grey[900]),
+          ),
+        ),
       ),
       body: Container(
           color: _backgroundColor,
@@ -109,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(height: 50),
                 Text(
                   _gameSentance,
-                  style: TextStyle(color: _sentanceColor),
+                  style: TextStyle(color: _sentanceColor, fontSize: 20),
                 ),
               ],
             ),
