@@ -24,7 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _titleColor = Colors.amber[800] as Color;
     } else if (items.length % 2 == 0) {
       _title = createTitle("Nombre pair");
-      _titleColor = Color.fromARGB(255, 82, 179, 17);
+      _titleColor = const Color.fromARGB(255, 82, 179, 17);
     } else {
       _title = createTitle("Nombre impair");
       _titleColor = const Color.fromARGB(255, 151, 23, 13);

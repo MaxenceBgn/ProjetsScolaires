@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'myhomepagestate.dart';
+import 'my_homepage.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -8,13 +8,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Pomme, Poire et Ananas',
+      title: 'Casino Maxou',
       theme: ThemeData(
-        colorScheme:
-            ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 0, 109, 199)),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
         useMaterial3: true,
       ),
-      home: const MyHomePage(),
+      home: const MyHomePage(title: 'Casino Maxou'),
     );
   }
 }
