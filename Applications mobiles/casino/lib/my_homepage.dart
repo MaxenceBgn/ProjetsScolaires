@@ -22,6 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        centerTitle: true,
         title: Text(widget.title),
       ),
       body: Center(
@@ -40,8 +41,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        tooltip: 'Lancer',
+        child: const Icon(Icons.casino),
+        backgroundColor: Colors.red[600],
       ),
     );
   }
