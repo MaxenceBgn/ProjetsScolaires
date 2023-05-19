@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       textTheme: TextTheme(
         headline6: TextStyle(
           fontFamily: 'Casino',
-          fontSize: 50, // Changer la taille de police ici
+          fontSize: 50,
         ),
       ),
     );
