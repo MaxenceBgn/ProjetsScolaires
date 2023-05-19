@@ -18,6 +18,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Image _imageSlot3 = Image.asset('images/cerise.png', width: 100, height: 100);
   bool _isWinner = false;
   String _gameSentance = "Tentez votre chance, lancez la machine...";
+  Color _backgroundColor = const Color.fromARGB(255, 43, 42, 42);
 
   void _definiteSlotsImages() {
     var rng = Random();
@@ -68,6 +69,10 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  void _winnerAnimation() {
+    _backgroundColor = Colors.yellow[700]!;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,27 +81,30 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Row(
+      body: Container(
+          color: _backgroundColor,
+          child: Center(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _imageSlot1,
-                const SizedBox(width: 50),
-                _imageSlot2,
-                const SizedBox(width: 50),
-                _imageSlot3,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    _imageSlot1,
+                    const SizedBox(width: 50),
+                    _imageSlot2,
+                    const SizedBox(width: 50),
+                    _imageSlot3,
+                  ],
+                ),
+                const SizedBox(height: 50),
+                Text(
+                  _gameSentance,
+                ),
               ],
             ),
-            Text(
-              _gameSentance,
-            ),
-          ],
-        ),
-      ),
+          )),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           _definiteSlotsImages();

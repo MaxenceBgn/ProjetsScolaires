@@ -23,3 +23,8 @@ flutter:
 
   assets: 
     - assets/images/bar.png
+
+  fonts: 
+      - family: Casino
+        fonts:
+          - asset : assets/fonts/Casino.ttf
