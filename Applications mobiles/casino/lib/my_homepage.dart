@@ -10,19 +10,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   int _slot1 = 0;
   int _slot2 = 0;
   int _slot3 = 0;
   Image _imageSlot1 = Image.asset('images/cerise.png', width: 100, height: 100);
   Image _imageSlot2 = Image.asset('images/cerise.png', width: 100, height: 100);
   Image _imageSlot3 = Image.asset('images/cerise.png', width: 100, height: 100);
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  bool _isWinner = false;
+  String _gameSentance = "Tentez votre chance, lancez la machine...";
 
   void _definiteSlotsImages() {
     var rng = Random();
@@ -30,11 +25,28 @@ class _MyHomePageState extends State<MyHomePage> {
     _slot2 = rng.nextInt(6);
     _slot3 = rng.nextInt(6);
 
+    if (_slot1 == _slot2 && _slot2 == _slot3) {
+      _isWinner = true;
+    }
+
     setState(() {
       _imageSlot1 = _getImageForSlot(_slot1);
       _imageSlot2 = _getImageForSlot(_slot2);
       _imageSlot3 = _getImageForSlot(_slot3);
     });
+  }
+
+  void _updateGameSentance() {
+    if (_isWinner) {
+      _isWinner = false;
+      if (_slot1 == 6) {
+        _gameSentance = "Jackpot de 7 !!";
+      } else {
+        _gameSentance = "Gagné !";
+      }
+    } else {
+      _gameSentance = "Perdu... Retente ta chance";
+    }
   }
 
   Image _getImageForSlot(int slot) {
@@ -80,14 +92,16 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
             Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+              _gameSentance,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _definiteSlotsImages,
+        onPressed: () {
+          _definiteSlotsImages();
+          _updateGameSentance();
+        },
         tooltip: 'Lancer',
         backgroundColor: Colors.red[600],
         child: const Icon(Icons.casino),
