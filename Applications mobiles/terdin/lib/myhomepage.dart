@@ -21,6 +21,14 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  String getOnlineStatus(int index, List<Bachelor> bachelors) {
+    if (bachelors[index].isOnline == true) {
+      return "assets/images/online.png";
+    } else {
+      return "assets/images/offline.png";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,8 +48,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     tileColor: getTileColor(index, _profiles),
                     textColor: Colors.white,
                     leading: Image.asset(_profiles[index].avatar),
-                    title: Text(
-                        "${_profiles[index].firstname} ${_profiles[index].age} ans"),
+                    title: Row(
+                      children: [
+                        Text(
+                            "${_profiles[index].firstname} ${_profiles[index].age} ans"),
+                        const SizedBox(width: 10),
+                        Image.asset(getOnlineStatus(index, _profiles)),
+                      ],
+                    ),
                   );
                 },
               ),
