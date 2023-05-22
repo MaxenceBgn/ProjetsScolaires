@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../models/bachelor.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -10,12 +11,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  final _profiles = Bachelor.generateRandomProfiles(30);
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  Color? getTileColor(int index, List<Bachelor> bachelors) {
+    if (bachelors[index].isOnline == true) {
+      return Colors.grey;
+    } else {
+      return Colors.grey[700];
+    }
   }
 
   @override
@@ -26,23 +29,25 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: _profiles.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    tileColor: getTileColor(index, _profiles),
+                    textColor: Colors.white,
+                    leading: Image.asset(_profiles[index].avatar),
+                    title: Text(
+                        "${_profiles[index].firstname} ${_profiles[index].age} ans"),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
