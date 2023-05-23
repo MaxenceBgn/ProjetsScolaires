@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:terdin/profiledetails.dart';
 import '../models/bachelor.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -58,7 +59,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/profiledetails');
+                      Bachelor selectedPerson = _profiles[index];
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProfileDetailsPage(
+                            title: 'Détails du profil',
+                            selectedPerson: selectedPerson,
+                          ),
+                        ),
+                      );
                     },
                     child: ListTile(
                       tileColor: getTileColor(index, _profiles),

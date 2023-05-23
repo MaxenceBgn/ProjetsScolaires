@@ -3,7 +3,7 @@ import 'package:terdin/profiledetails.dart';
 import 'myhomepage.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,14 +11,17 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Terdin',
       theme: ThemeData(
-          appBarTheme: const AppBarTheme(
-        backgroundColor: Color.fromARGB(255, 165, 6, 67),
-      )),
-      home: const MyHomePage(title: 'Terdin'),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color.fromARGB(255, 165, 6, 67),
+        ),
+      ),
+      initialRoute: '/',
       routes: {
-        '/profiledetails': (context) => const ProfileDetailsPage(
+        '/': (context) => const MyHomePage(title: 'Terdin'),
+        '/profiledetails': (context) => ProfileDetailsPage(
               title: "Détails du profil",
-            ), /////////////Mettre nom de page comme le précédent
+              selectedPerson: null,
+            ),
       },
     );
   }

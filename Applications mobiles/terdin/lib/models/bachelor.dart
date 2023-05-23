@@ -75,6 +75,34 @@ List<String> lastnames = [
   "Morel",
 ];
 
+List<String> interestsList = [
+  'Cuisine',
+  'Rencontre',
+  'Voyage',
+  'Musculation',
+  'Sortir',
+  'Sport',
+  'Courir',
+  'Voitures',
+  'Animaux',
+  'Mangas',
+  'JeuxVideos',
+  'Nourriture',
+  'Cinema',
+  'Litterature',
+  'Aventure',
+  'Etudes',
+  'Deguisement',
+  'Evenements',
+  'Visite',
+  'Artisanat',
+  'Vente',
+  'Commerce',
+  'Promenade',
+  'Randonnee',
+  'Aviation',
+];
+
 class Bachelor {
   //Person parameters -----------------------------------------------------------------------------------------
 
@@ -155,6 +183,28 @@ class Bachelor {
     }
   }
 
+  static String generateInterestsCenter() {
+    List<String> listToReturn = [];
+    String interest1 = findAInterestCenter();
+    String interest2 = findAInterestCenter();
+    String interest3 = findAInterestCenter();
+    String interest4 = findAInterestCenter();
+    String interest5 = findAInterestCenter();
+
+    listToReturn.add(interest1);
+    listToReturn.add(interest2);
+    listToReturn.add(interest3);
+    listToReturn.add(interest4);
+    listToReturn.add(interest5);
+
+    return listToReturn.join(", ");
+  }
+
+  static String findAInterestCenter() {
+    int number = returnRandomNumber(interestsList.length);
+    return interestsList[number];
+  }
+
   //Main ------------------------------------------------------------------------------------------------------------------------------
 
   static List<Bachelor> generateRandomProfiles(int count) {
@@ -170,6 +220,7 @@ class Bachelor {
       profile.age = generateAge();
       profile.avatar = generateAvatar(profile.gender, profile.age);
       profile.isOnline = generateActivity();
+      profile.interests = generateInterestsCenter();
       profiles.add(profile);
     }
 
@@ -182,4 +233,5 @@ class Bachelor {
   String avatar = "";
   int age = 0;
   bool isOnline = false;
+  String interests = "";
 }
