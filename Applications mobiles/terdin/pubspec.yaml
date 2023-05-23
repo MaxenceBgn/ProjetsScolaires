@@ -25,6 +25,11 @@ flutter:
 
   uses-material-design: true
 
+  fonts: 
+    - family: Lato
+      fonts:
+        - asset: assets/fonts/lato/Lato-SemiboldItalic.ttf
+
   assets: 
     - assets/images/man-1.png
     - assets/images/man-2.png
@@ -59,3 +64,4 @@ flutter:
     - assets/images/non-binaire.png
     - assets/images/online.png
     - assets/images/offline.png
+    - assets/images/coeur.png

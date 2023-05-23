@@ -33,8 +33,20 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Text(
+          widget.title,
+          style: const TextStyle(fontFamily: 'Lato'),
+        ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 16.0),
+            child: Image.asset(
+              'assets/images/coeur.png',
+              width: 35,
+              height: 35,
+            ),
+          ),
+        ],
       ),
       body: Center(
         child: SingleChildScrollView(
