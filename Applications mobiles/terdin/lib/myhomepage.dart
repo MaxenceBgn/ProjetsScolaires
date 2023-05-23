@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         actions: [
           Padding(
-            padding: EdgeInsets.only(right: 16.0),
+            padding: const EdgeInsets.only(right: 16.0),
             child: Image.asset(
               'assets/images/coeur.png',
               width: 35,
@@ -56,17 +56,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 shrinkWrap: true,
                 itemCount: _profiles.length,
                 itemBuilder: (context, index) {
-                  return ListTile(
-                    tileColor: getTileColor(index, _profiles),
-                    textColor: Colors.white,
-                    leading: Image.asset(_profiles[index].avatar),
-                    title: Row(
-                      children: [
-                        Text(
-                            "${_profiles[index].firstname} ${_profiles[index].age} ans"),
-                        const SizedBox(width: 10),
-                        Image.asset(getOnlineStatus(index, _profiles)),
-                      ],
+                  return InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/profiledetails');
+                    },
+                    child: ListTile(
+                      tileColor: getTileColor(index, _profiles),
+                      textColor: Colors.white,
+                      leading: Image.asset(_profiles[index].avatar),
+                      title: Row(
+                        children: [
+                          Text(
+                              "${_profiles[index].firstname} ${_profiles[index].age} ans"),
+                          const SizedBox(width: 10),
+                          Image.asset(getOnlineStatus(index, _profiles)),
+                        ],
+                      ),
                     ),
                   );
                 },
