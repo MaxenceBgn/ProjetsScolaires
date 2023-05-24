@@ -103,6 +103,31 @@ List<String> interestsList = [
   'Aviation',
 ];
 
+List<String> cities = [
+  "Metz",
+  "Courcelles-Chaussy",
+  "Faulquemont",
+  "Stuckange",
+  "Mondelange",
+  "Marsilly",
+  "Mécleuves",
+  "Corny-sur-Moselle",
+  "Goin",
+  "Sérémange-Erzange",
+  "Sarreguemines",
+  "Sarralbe",
+  "Saint-Louis",
+  "Bitche",
+  "Montbronn",
+  "Volmunster",
+  "Alsting",
+  "Silly-sur-Nied",
+  "Saint-Avold",
+  "Stiring-Wendel",
+  "Forbach",
+  "Folshviller"
+];
+
 class Bachelor {
   //Person parameters -----------------------------------------------------------------------------------------
 
@@ -205,6 +230,11 @@ class Bachelor {
     return interestsList[number];
   }
 
+  static String generateCity() {
+    int number = returnRandomNumber(cities.length);
+    return cities[number];
+  }
+
   //Main ------------------------------------------------------------------------------------------------------------------------------
 
   static List<Bachelor> generateRandomProfiles(int count) {
@@ -221,6 +251,7 @@ class Bachelor {
       profile.avatar = generateAvatar(profile.gender, profile.age);
       profile.isOnline = generateActivity();
       profile.interests = generateInterestsCenter();
+      profile.city = generateCity();
       profiles.add(profile);
     }
 
@@ -234,4 +265,5 @@ class Bachelor {
   int age = 0;
   bool isOnline = false;
   String interests = "";
+  String city = "";
 }

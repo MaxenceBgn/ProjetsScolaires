@@ -49,45 +49,43 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: _profiles.length,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      Bachelor selectedPerson = _profiles[index];
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ProfileDetailsPage(
-                            title: 'Détails du profil',
-                            selectedPerson: selectedPerson,
-                          ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: _profiles.length,
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: () {
+                    Bachelor selectedPerson = _profiles[index];
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfileDetailsPage(
+                          title: 'Détails du profil',
+                          selectedPerson: selectedPerson,
                         ),
-                      );
-                    },
-                    child: ListTile(
-                      tileColor: getTileColor(index, _profiles),
-                      textColor: Colors.white,
-                      leading: Image.asset(_profiles[index].avatar),
-                      title: Row(
-                        children: [
-                          Text(
-                              "${_profiles[index].firstname} ${_profiles[index].age} ans"),
-                          const SizedBox(width: 10),
-                          Image.asset(getOnlineStatus(index, _profiles)),
-                        ],
                       ),
+                    );
+                  },
+                  child: ListTile(
+                    tileColor: getTileColor(index, _profiles),
+                    textColor: Colors.white,
+                    leading: Image.asset(_profiles[index].avatar),
+                    title: Row(
+                      children: [
+                        Text(
+                            "${_profiles[index].firstname} ${_profiles[index].age} ans"),
+                        const SizedBox(width: 10),
+                        Image.asset(getOnlineStatus(index, _profiles)),
+                      ],
                     ),
-                  );
-                },
-              ),
-            ],
-          ),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );
