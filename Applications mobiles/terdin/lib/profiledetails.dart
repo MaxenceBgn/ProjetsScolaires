@@ -8,6 +8,7 @@ class ProfileDetailsPage extends StatefulWidget {
   final Bachelor? selectedPerson;
 
   @override
+  // ignore: library_private_types_in_public_api
   _ProfileDetailsPageState createState() => _ProfileDetailsPageState();
 }
 
@@ -60,6 +61,16 @@ class _ProfileDetailsPageState extends State<ProfileDetailsPage> {
         backgroundColor: alertColor,
       ),
     );
+  }
+
+  String _displayGender(Bachelor person) {
+    if (person.gender == Gender.Homme) {
+      return "Homme";
+    } else if (person.gender == Gender.Femme) {
+      return "Femme";
+    } else {
+      return "Non binaire";
+    }
   }
 
   @override
@@ -141,17 +152,83 @@ class _ProfileDetailsPageState extends State<ProfileDetailsPage> {
               Row(
                 children: [
                   const Text(
+                    "Description : ",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                  ),
+                  Expanded(
+                    child: Text(
+                      selectedPerson.description,
+                      style: const TextStyle(
+                          fontSize: 17, fontWeight: FontWeight.w500),
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(
+                width: 25,
+              ),
+              Row(
+                children: [
+                  const Text(
                     "Centres d'intérêts : ",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
                   ),
                   Expanded(
                     child: Text(
                       selectedPerson.interests,
-                      style: const TextStyle(fontSize: 25),
+                      style: const TextStyle(fontSize: 17),
                     ),
                   ),
                 ],
               ),
+              const SizedBox(
+                width: 25,
+              ),
+              Row(
+                children: [
+                  const Text(
+                    "Genre : ",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                  ),
+                  Text(
+                    _displayGender(selectedPerson),
+                    style: const TextStyle(
+                        fontSize: 17, fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                width: 25,
+              ),
+              Row(
+                children: [
+                  const Text(
+                    "Statut : ",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                  ),
+                  Text(
+                    selectedPerson.statut,
+                    style: const TextStyle(
+                        fontSize: 17, fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                width: 25,
+              ),
+              Row(
+                children: [
+                  const Text(
+                    "Sexualité : ",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                  ),
+                  Text(
+                    selectedPerson.sexuality,
+                    style: const TextStyle(
+                        fontSize: 17, fontWeight: FontWeight.w500),
+                  ),
+                ],
+              )
             ],
           ),
         ),

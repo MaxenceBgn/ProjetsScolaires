@@ -128,6 +128,45 @@ List<String> cities = [
   "Folshviller"
 ];
 
+List<String> statuts = [
+  "Célibataire",
+  "En couple",
+  "Marié",
+  "En relation libre",
+  "Ne souhaite pas le communiquer"
+];
+
+List<String> sexualities = [
+  "Hétéro",
+  "Bi",
+  "Gay",
+  "Pansexuel",
+  "Asexuel",
+  "Démisexuel",
+  "Hétéroflexible",
+  "Homoflexible",
+  "Skoliosexuel",
+  "Autosexuel"
+];
+
+List<String> descriptions = [
+  "Aventurier passionné cherchant un partenaire pour explorer le monde ensemble.",
+  "Amateur de café, cinéphile et amoureux des animaux. Recherche connexion authentique.",
+  "Passionné de musique et de danse, à la recherche d'un partenaire pour enflammer la piste.",
+  "Esprit créatif avec une passion pour l'art et la photographie. À la recherche d'inspiration.",
+  "Amoureux de la nature et des randonnées en montagne. À la recherche d'une âme sœur en plein air.",
+  "Globe-trotter à la recherche d'un compagnon de voyage pour créer des souvenirs inoubliables.",
+  "Amateur de gastronomie cherchant un partenaire pour découvrir de délicieux restaurants.",
+  "Passionné de fitness et de mode de vie sain. À la recherche d'un partenaire motivé.",
+  "Fan de jeux vidéo et de soirées jeux de société. Recherche quelqu'un pour défier et s'amuser.",
+  "Adepte du yoga et de la méditation. Cherche un esprit tranquille pour une connexion profonde.",
+  "Amateur de livres et de discussions intellectuelles. À la recherche d'une connexion intellectuelle.",
+  "Fan de concerts et de festivals. Recherche une âme sœur musicale pour partager des moments forts.",
+  "Amoureux des animaux et bénévole dans un refuge. À la recherche d'un partenaire compatissant.",
+  "Passionné de sports extrêmes et d'adrénaline. Recherche un compagnon d'aventure intrépide.",
+  "Amateur de comédies et de rires. Cherche quelqu'un pour partager des moments de pure joie."
+];
+
 class Bachelor {
   //Person parameters -----------------------------------------------------------------------------------------
 
@@ -235,6 +274,21 @@ class Bachelor {
     return cities[number];
   }
 
+  static String generateStatus() {
+    int number = returnRandomNumber(statuts.length);
+    return statuts[number];
+  }
+
+  static String generateSexuality() {
+    int number = returnRandomNumber(statuts.length);
+    return sexualities[number];
+  }
+
+  static String generateDescription() {
+    int number = returnRandomNumber(descriptions.length);
+    return descriptions[number];
+  }
+
   //Main ------------------------------------------------------------------------------------------------------------------------------
 
   static List<Bachelor> generateRandomProfiles(int count) {
@@ -252,6 +306,9 @@ class Bachelor {
       profile.isOnline = generateActivity();
       profile.interests = generateInterestsCenter();
       profile.city = generateCity();
+      profile.statut = generateStatus();
+      profile.sexuality = generateSexuality();
+      profile.description = generateDescription();
       profiles.add(profile);
     }
 
@@ -266,4 +323,7 @@ class Bachelor {
   bool isOnline = false;
   String interests = "";
   String city = "";
+  String statut = "";
+  String sexuality = "";
+  String description = "";
 }
