@@ -15,7 +15,7 @@ class ProfileDetailsPage extends StatefulWidget {
 class _ProfileDetailsPageState extends State<ProfileDetailsPage> {
   bool liked = false;
   Icon likeIcon = Icon(
-    Icons.heart_broken_sharp,
+    Icons.favorite,
     color: Colors.grey[600],
   );
   Color alertColor = const Color.fromARGB(255, 55, 143, 58);
@@ -99,7 +99,7 @@ class _ProfileDetailsPageState extends State<ProfileDetailsPage> {
             children: [
               Container(
                 width: double.infinity,
-                color: const Color.fromARGB(255, 190, 21, 21),
+                color: Color.fromARGB(255, 65, 65, 65),
                 padding: EdgeInsets.all(20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -117,27 +117,29 @@ class _ProfileDetailsPageState extends State<ProfileDetailsPage> {
                         children: [
                           Text(
                             "${selectedPerson.firstname} ${selectedPerson.lastname}",
-                            style: const TextStyle(
-                                fontSize: 50, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontSize: 50,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.amber[50]),
                           ),
                           const SizedBox(
                             width: 30,
                           ),
                           Image.asset(
                             getOnlineStatus(selectedPerson),
-                            width: 50,
-                            height: 50,
+                            width: 25,
+                            height: 25,
                           ),
                         ],
                       ),
                     ),
                     Text(
                       "${selectedPerson.age} ans",
-                      style: const TextStyle(fontSize: 40),
+                      style: TextStyle(fontSize: 40, color: Colors.amber[50]),
                     ),
                     Text(
                       selectedPerson.city,
-                      style: const TextStyle(fontSize: 35),
+                      style: TextStyle(fontSize: 40, color: Colors.amber[50]),
                     ),
                     IconButton(
                         onPressed: () {
@@ -148,86 +150,100 @@ class _ProfileDetailsPageState extends State<ProfileDetailsPage> {
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
-              Row(
-                children: [
-                  const Text(
-                    "Description : ",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
-                  ),
-                  Expanded(
-                    child: Text(
-                      selectedPerson.description,
-                      style: const TextStyle(
-                          fontSize: 17, fontWeight: FontWeight.w500),
+              Container(
+                width: double.infinity,
+                color: Color.fromARGB(158, 173, 167, 167),
+                padding: EdgeInsets.all(20),
+                child: Center(
+                  child: Column(children: [
+                    const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        const Text(
+                          "Description : ",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.w500),
+                        ),
+                        Expanded(
+                          child: Text(
+                            selectedPerson.description,
+                            style: const TextStyle(
+                                fontSize: 17, fontWeight: FontWeight.w500),
+                          ),
+                        )
+                      ],
                     ),
-                  )
-                ],
-              ),
-              const SizedBox(
-                width: 25,
-              ),
-              Row(
-                children: [
-                  const Text(
-                    "Centres d'intérêts : ",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
-                  ),
-                  Expanded(
-                    child: Text(
-                      selectedPerson.interests,
-                      style: const TextStyle(fontSize: 17),
+                    const SizedBox(
+                      width: 25,
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                width: 25,
-              ),
-              Row(
-                children: [
-                  const Text(
-                    "Genre : ",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
-                  ),
-                  Text(
-                    _displayGender(selectedPerson),
-                    style: const TextStyle(
-                        fontSize: 17, fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                width: 25,
-              ),
-              Row(
-                children: [
-                  const Text(
-                    "Statut : ",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
-                  ),
-                  Text(
-                    selectedPerson.statut,
-                    style: const TextStyle(
-                        fontSize: 17, fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                width: 25,
-              ),
-              Row(
-                children: [
-                  const Text(
-                    "Sexualité : ",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
-                  ),
-                  Text(
-                    selectedPerson.sexuality,
-                    style: const TextStyle(
-                        fontSize: 17, fontWeight: FontWeight.w500),
-                  ),
-                ],
+                    Row(
+                      children: [
+                        const Text(
+                          "Centres d'intérêts : ",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.w500),
+                        ),
+                        Expanded(
+                          child: Text(
+                            selectedPerson.interests,
+                            style: const TextStyle(fontSize: 17),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 25,
+                    ),
+                    Row(
+                      children: [
+                        const Text(
+                          "Genre : ",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.w500),
+                        ),
+                        Text(
+                          _displayGender(selectedPerson),
+                          style: const TextStyle(
+                              fontSize: 17, fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 25,
+                    ),
+                    Row(
+                      children: [
+                        const Text(
+                          "Statut : ",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.w500),
+                        ),
+                        Text(
+                          selectedPerson.statut,
+                          style: const TextStyle(
+                              fontSize: 17, fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 25,
+                    ),
+                    Row(
+                      children: [
+                        const Text(
+                          "Sexualité : ",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.w500),
+                        ),
+                        Text(
+                          selectedPerson.sexuality,
+                          style: const TextStyle(
+                              fontSize: 17, fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    )
+                  ]),
+                ),
               )
             ],
           ),

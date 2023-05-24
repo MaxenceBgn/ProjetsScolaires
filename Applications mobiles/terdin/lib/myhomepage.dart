@@ -78,7 +78,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         Text(
                             "${_profiles[index].firstname} ${_profiles[index].age} ans"),
                         const SizedBox(width: 10),
-                        Image.asset(getOnlineStatus(index, _profiles)),
+                        Image.asset(
+                          getOnlineStatus(index, _profiles),
+                          width: 10,
+                          height: 10,
+                        ),
                       ],
                     ),
                   ),
