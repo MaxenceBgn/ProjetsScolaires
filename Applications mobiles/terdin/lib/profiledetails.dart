@@ -17,6 +17,8 @@ class _ProfileDetailsPageState extends State<ProfileDetailsPage> {
     Icons.heart_broken_sharp,
     color: Colors.grey[600],
   );
+  Color alertColor = const Color.fromARGB(255, 55, 143, 58);
+  String alertText = "Vous avez liké ce profil";
 
   String getOnlineStatus(Bachelor person) {
     if (person.isOnline == true) {
@@ -34,6 +36,8 @@ class _ProfileDetailsPageState extends State<ProfileDetailsPage> {
           Icons.favorite,
           color: Colors.red[900],
         );
+        alertColor = const Color.fromARGB(255, 55, 143, 58);
+        alertText = "Vous avez liké ce profil";
       });
     } else {
       setState(() {
@@ -42,8 +46,20 @@ class _ProfileDetailsPageState extends State<ProfileDetailsPage> {
           Icons.heart_broken_sharp,
           color: Colors.grey[600],
         );
+        alertColor = Colors.red[700]!;
+        alertText = "Vous n'aimez plus ce profil";
       });
     }
+  }
+
+  void _displayAlert(String alertText) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(alertText),
+        duration: const Duration(seconds: 2),
+        backgroundColor: alertColor,
+      ),
+    );
   }
 
   @override
@@ -96,7 +112,11 @@ class _ProfileDetailsPageState extends State<ProfileDetailsPage> {
                           const SizedBox(
                             width: 30,
                           ),
-                          Image.asset(getOnlineStatus(selectedPerson)),
+                          Image.asset(
+                            getOnlineStatus(selectedPerson),
+                            width: 50,
+                            height: 50,
+                          ),
                         ],
                       ),
                     ),
@@ -108,7 +128,12 @@ class _ProfileDetailsPageState extends State<ProfileDetailsPage> {
                       selectedPerson.city,
                       style: const TextStyle(fontSize: 35),
                     ),
-                    IconButton(onPressed: likeProfile, icon: likeIcon)
+                    IconButton(
+                        onPressed: () {
+                          likeProfile();
+                          _displayAlert(alertText);
+                        },
+                        icon: likeIcon)
                   ],
                 ),
               ),
