@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:terdin/profiledetails.dart';
+import 'package:terdin/bachelorDetails.dart';
 import '../models/bachelor.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class BachelorLikedPreview extends StatefulWidget {
+  const BachelorLikedPreview({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<BachelorLikedPreview> createState() => _BachelorLikedPreviewState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _BachelorLikedPreviewState extends State<BachelorLikedPreview> {
   final _profiles = Bachelor.generateRandomProfiles(30);
+  List<Bachelor> likedBachelors = [];
 
   Color? getTileColor(int index, List<Bachelor> bachelors) {
     if (bachelors[index].isOnline == true) {
@@ -62,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ProfileDetailsPage(
+                        builder: (context) => BachelorDetailsPage(
                           title: 'Détails du profil',
                           selectedPerson: selectedPerson,
                         ),

@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:terdin/providers/bachelors_favorites_provider.dart';
 import '../models/bachelor.dart';
+import 'package:provider/provider.dart';
 
-class ProfileDetailsPage extends StatefulWidget {
-  ProfileDetailsPage({required this.title, required this.selectedPerson});
+// ignore: must_be_immutable
+class BachelorDetailsPage extends StatefulWidget {
+  // ignore: prefer_typing_uninitialized_variables
+  var likedBachelors;
+
+  BachelorDetailsPage({
+    super.key,
+    required this.title,
+    required this.selectedPerson,
+  });
 
   final String title;
   final Bachelor? selectedPerson;
@@ -12,7 +22,7 @@ class ProfileDetailsPage extends StatefulWidget {
   _ProfileDetailsPageState createState() => _ProfileDetailsPageState();
 }
 
-class _ProfileDetailsPageState extends State<ProfileDetailsPage> {
+class _ProfileDetailsPageState extends State<BachelorDetailsPage> {
   bool liked = false;
   Icon likeIcon = Icon(
     Icons.favorite,
@@ -39,6 +49,8 @@ class _ProfileDetailsPageState extends State<ProfileDetailsPage> {
         );
         alertColor = const Color.fromARGB(255, 55, 143, 58);
         alertText = "Vous avez liké ce profil";
+        Provider.of<BachelorsLikedCollection>(context, listen: false)
+            .addLikedBachelor(widget.selectedPerson!);
       });
     } else {
       setState(() {
@@ -77,6 +89,7 @@ class _ProfileDetailsPageState extends State<ProfileDetailsPage> {
   Widget build(BuildContext context) {
     final selectedPerson = widget.selectedPerson;
     return Scaffold(
+      backgroundColor: const Color.fromARGB(158, 173, 167, 167),
       appBar: AppBar(
         title: Text(
           widget.title,
@@ -99,8 +112,8 @@ class _ProfileDetailsPageState extends State<ProfileDetailsPage> {
             children: [
               Container(
                 width: double.infinity,
-                color: Color.fromARGB(255, 65, 65, 65),
-                padding: EdgeInsets.all(20),
+                color: const Color.fromARGB(255, 65, 65, 65),
+                padding: const EdgeInsets.all(20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -152,8 +165,8 @@ class _ProfileDetailsPageState extends State<ProfileDetailsPage> {
               ),
               Container(
                 width: double.infinity,
-                color: Color.fromARGB(158, 173, 167, 167),
-                padding: EdgeInsets.all(20),
+                color: const Color.fromARGB(158, 173, 167, 167),
+                padding: const EdgeInsets.all(20),
                 child: Center(
                   child: Column(children: [
                     const SizedBox(height: 20),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:terdin/profiledetails.dart';
-import 'myhomepage.dart';
+import 'package:terdin/bachelorDetails.dart';
+import 'bachelorPreview.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const MyHomePage(title: 'Terdin'),
-        '/profiledetails': (context) => ProfileDetailsPage(
+        '/': (context) => const BachelorPreview(title: 'Terdin'),
+        '/profiledetails': (context) => BachelorDetailsPage(
               title: "Détails du profil",
               selectedPerson: null,
             ),
