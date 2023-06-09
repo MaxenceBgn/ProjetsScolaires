@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:terdin/bachelorDetails.dart';
+import 'package:terdin/liked_profile_provider.dart';
 import '../models/bachelor.dart';
 
 class BachelorPreview extends StatefulWidget {
@@ -16,10 +18,14 @@ class _MyHomePageState extends State<BachelorPreview> {
   List<Bachelor> likedBachelors = [];
 
   Color? getTileColor(int index, List<Bachelor> bachelors) {
-    if (bachelors[index].isOnline == true) {
-      return Colors.grey;
+    if (bachelors[index].isLiked) {
+      return const Color.fromARGB(255, 165, 123, 6);
     } else {
-      return Colors.grey[700];
+      if (bachelors[index].isOnline == true) {
+        return Colors.grey;
+      } else {
+        return Colors.grey[700];
+      }
     }
   }
 
@@ -51,46 +57,50 @@ class _MyHomePageState extends State<BachelorPreview> {
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: _profiles.length,
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    Bachelor selectedPerson = _profiles[index];
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => BachelorDetailsPage(
-                          title: 'Détails du profil',
-                          selectedPerson: selectedPerson,
+        child: Consumer<LikedProfileProvider>(
+          builder: (context, profileProvider, _) {
+            return Column(
+              children: [
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: _profiles.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        Bachelor selectedPerson = _profiles[index];
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BachelorDetailsPage(
+                              title: 'Détails du profil',
+                              selectedPerson: selectedPerson,
+                            ),
+                          ),
+                        );
+                      },
+                      child: ListTile(
+                        tileColor: getTileColor(index, _profiles),
+                        textColor: Colors.white,
+                        leading: Image.asset(_profiles[index].avatar),
+                        title: Row(
+                          children: [
+                            Text(
+                                "${_profiles[index].firstname} ${_profiles[index].age} ans"),
+                            const SizedBox(width: 10),
+                            Image.asset(
+                              getOnlineStatus(index, _profiles),
+                              width: 10,
+                              height: 10,
+                            ),
+                          ],
                         ),
                       ),
                     );
                   },
-                  child: ListTile(
-                    tileColor: getTileColor(index, _profiles),
-                    textColor: Colors.white,
-                    leading: Image.asset(_profiles[index].avatar),
-                    title: Row(
-                      children: [
-                        Text(
-                            "${_profiles[index].firstname} ${_profiles[index].age} ans"),
-                        const SizedBox(width: 10),
-                        Image.asset(
-                          getOnlineStatus(index, _profiles),
-                          width: 10,
-                          height: 10,
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
-          ],
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

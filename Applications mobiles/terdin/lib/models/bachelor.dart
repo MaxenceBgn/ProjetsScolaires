@@ -326,4 +326,5 @@ class Bachelor {
   String statut = "";
   String sexuality = "";
   String description = "";
+  bool isLiked = false;
 }

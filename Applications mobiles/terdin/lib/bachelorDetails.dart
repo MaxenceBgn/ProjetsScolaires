@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:terdin/providers/bachelors_favorites_provider.dart';
+import 'liked_profile_provider.dart';
 import '../models/bachelor.dart';
 import 'package:provider/provider.dart';
 
@@ -40,28 +40,15 @@ class _ProfileDetailsPageState extends State<BachelorDetailsPage> {
   }
 
   void likeProfile() {
-    if (liked == false) {
-      setState(() {
-        liked = true;
-        likeIcon = Icon(
-          Icons.favorite,
-          color: Colors.red[900],
-        );
-        alertColor = const Color.fromARGB(255, 55, 143, 58);
-        alertText = "Vous avez liké ce profil";
-        Provider.of<BachelorsLikedCollection>(context, listen: false)
-            .addLikedBachelor(widget.selectedPerson!);
-      });
+    final likedProfileProvider =
+        Provider.of<LikedProfileProvider>(context, listen: false);
+
+    if (!widget.selectedPerson!.isLiked) {
+      likedProfileProvider.likeProfile(widget.selectedPerson!);
+      _displayAlert("Vous avez liké ce profil");
     } else {
-      setState(() {
-        liked = false;
-        likeIcon = Icon(
-          Icons.heart_broken_sharp,
-          color: Colors.grey[600],
-        );
-        alertColor = Colors.red[700]!;
-        alertText = "Vous n'aimez plus ce profil";
-      });
+      likedProfileProvider.unlikeProfile(widget.selectedPerson!);
+      _displayAlert("Vous n'aimez plus ce profil");
     }
   }
 
@@ -108,7 +95,8 @@ class _ProfileDetailsPageState extends State<BachelorDetailsPage> {
       ),
       body: Center(
         child: SingleChildScrollView(
-          child: Column(
+            child: Consumer(builder: (context, profileProvider, _) {
+          return Column(
             children: [
               Container(
                 width: double.infinity,
@@ -154,12 +142,20 @@ class _ProfileDetailsPageState extends State<BachelorDetailsPage> {
                       selectedPerson.city,
                       style: TextStyle(fontSize: 40, color: Colors.amber[50]),
                     ),
-                    IconButton(
-                        onPressed: () {
-                          likeProfile();
-                          _displayAlert(alertText);
-                        },
-                        icon: likeIcon)
+                    Consumer<LikedProfileProvider>(
+                      builder: (context, likedProfileProvider, _) {
+                        final isLiked = likedProfileProvider
+                            .isProfileLiked(widget.selectedPerson!);
+
+                        return IconButton(
+                          onPressed: () => likeProfile(),
+                          icon: isLiked
+                              ? Icon(Icons.favorite, color: Colors.red[900])
+                              : Icon(Icons.heart_broken_sharp,
+                                  color: Colors.grey[600]),
+                        );
+                      },
+                    )
                   ],
                 ),
               ),
@@ -259,8 +255,8 @@ class _ProfileDetailsPageState extends State<BachelorDetailsPage> {
                 ),
               )
             ],
-          ),
-        ),
+          );
+        })),
       ),
     );
   }
