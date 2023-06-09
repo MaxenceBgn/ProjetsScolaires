@@ -6,6 +6,7 @@ class LikedProfileProvider extends ChangeNotifier {
 
   void likeProfile(Bachelor profile) {
     profile.isLiked = true;
+    profile.hasBeenLiked = true;
     likedProfiles.add(profile);
     notifyListeners();
   }

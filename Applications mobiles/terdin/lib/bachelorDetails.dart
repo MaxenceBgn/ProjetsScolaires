@@ -45,10 +45,14 @@ class _ProfileDetailsPageState extends State<BachelorDetailsPage> {
 
     if (!widget.selectedPerson!.isLiked) {
       likedProfileProvider.likeProfile(widget.selectedPerson!);
+      alertColor = const Color.fromARGB(255, 55, 143, 58);
+      alertText = "Vous avez liké ce profil";
       _displayAlert("Vous avez liké ce profil");
     } else {
       likedProfileProvider.unlikeProfile(widget.selectedPerson!);
-      _displayAlert("Vous n'aimez plus ce profil");
+      alertColor = Color.fromARGB(255, 134, 5, 5);
+      alertText = "Vous n'aimez plus ce profil";
+      _displayAlert(alertText);
     }
   }
 
@@ -56,7 +60,7 @@ class _ProfileDetailsPageState extends State<BachelorDetailsPage> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(alertText),
-        duration: const Duration(seconds: 2),
+        duration: const Duration(seconds: 1),
         backgroundColor: alertColor,
       ),
     );
@@ -69,6 +73,20 @@ class _ProfileDetailsPageState extends State<BachelorDetailsPage> {
       return "Femme";
     } else {
       return "Non binaire";
+    }
+  }
+
+  Icon _displayFavoriteIcon(Bachelor profile) {
+    if (!profile.hasBeenLiked && !profile.isLiked) {
+      return const Icon(Icons.favorite,
+          color: Color.fromARGB(255, 163, 163, 163));
+    } else {
+      if (profile.isLiked) {
+        return Icon(Icons.favorite, color: Colors.red[900]);
+      } else {
+        return const Icon(Icons.heart_broken_sharp,
+            color: Color.fromARGB(255, 163, 163, 163));
+      }
     }
   }
 
@@ -144,16 +162,9 @@ class _ProfileDetailsPageState extends State<BachelorDetailsPage> {
                     ),
                     Consumer<LikedProfileProvider>(
                       builder: (context, likedProfileProvider, _) {
-                        final isLiked = likedProfileProvider
-                            .isProfileLiked(widget.selectedPerson!);
-
                         return IconButton(
-                          onPressed: () => likeProfile(),
-                          icon: isLiked
-                              ? Icon(Icons.favorite, color: Colors.red[900])
-                              : Icon(Icons.heart_broken_sharp,
-                                  color: Colors.grey[600]),
-                        );
+                            onPressed: () => likeProfile(),
+                            icon: _displayFavoriteIcon(widget.selectedPerson!));
                       },
                     )
                   ],
