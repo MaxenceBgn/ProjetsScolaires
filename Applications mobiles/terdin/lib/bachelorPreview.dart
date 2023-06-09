@@ -45,9 +45,35 @@ class _MyHomePageState extends State<BachelorPreview> {
           widget.title,
           style: const TextStyle(fontFamily: 'Lato'),
         ),
+        flexibleSpace: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Expanded(child: SizedBox()), // Espace vide à gauche
+            Center(
+              child: IconButton(
+                icon: const Icon(
+                  Icons.favorite,
+                  color: Colors.white,
+                  size: 35,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LikedProfilesPage(
+                        title: 'Mes profils likés',
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            const Expanded(child: SizedBox()), // Espace vide à droite
+          ],
+        ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Image.asset(
               'assets/images/coeur.png',
               width: 35,
