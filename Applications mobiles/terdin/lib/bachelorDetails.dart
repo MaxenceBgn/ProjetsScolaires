@@ -50,7 +50,7 @@ class _ProfileDetailsPageState extends State<BachelorDetailsPage> {
       _displayAlert("Vous avez liké ce profil");
     } else {
       likedProfileProvider.unlikeProfile(widget.selectedPerson!);
-      alertColor = Color.fromARGB(255, 134, 5, 5);
+      alertColor = const Color.fromARGB(255, 134, 5, 5);
       alertText = "Vous n'aimez plus ce profil";
       _displayAlert(alertText);
     }
@@ -166,7 +166,7 @@ class _ProfileDetailsPageState extends State<BachelorDetailsPage> {
                             onPressed: () => likeProfile(),
                             icon: _displayFavoriteIcon(widget.selectedPerson!));
                       },
-                    )
+                    ),
                   ],
                 ),
               ),

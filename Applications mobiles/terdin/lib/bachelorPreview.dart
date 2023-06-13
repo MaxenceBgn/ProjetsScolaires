@@ -29,6 +29,11 @@ class _MyHomePageState extends State<BachelorPreview> {
     }
   }
 
+  void _dislikeProfile(Bachelor bachelorDisliked, List<Bachelor> bachelors) {
+    bachelors.remove(bachelorDisliked);
+    setState(() {});
+  }
+
   String getOnlineStatus(int index, List<Bachelor> bachelors) {
     if (bachelors[index].isOnline == true) {
       return "assets/images/online.png";
@@ -118,6 +123,10 @@ class _MyHomePageState extends State<BachelorPreview> {
                               width: 10,
                               height: 10,
                             ),
+                            IconButton(
+                                onPressed: () => _dislikeProfile(
+                                    _profiles[index], _profiles),
+                                icon: const Icon(Icons.delete_forever))
                           ],
                         ),
                       ),

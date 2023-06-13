@@ -328,4 +328,5 @@ class Bachelor {
   String description = "";
   bool isLiked = false;
   bool hasBeenLiked = false;
+  bool isDisliked = false;
 }
