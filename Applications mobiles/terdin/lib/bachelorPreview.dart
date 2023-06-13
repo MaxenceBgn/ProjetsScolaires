@@ -15,6 +15,7 @@ class BachelorPreview extends StatefulWidget {
 
 class _MyHomePageState extends State<BachelorPreview> {
   final _profiles = Bachelor.generateRandomProfiles(30);
+  List<bool> checkboxStates = [true, true, true];
 
   Color? getTileColor(int index, List<Bachelor> bachelors) {
     if (bachelors[index].isLiked) {
@@ -47,8 +48,26 @@ class _MyHomePageState extends State<BachelorPreview> {
     }
   }
 
+  List<Bachelor> filterProfiles() {
+    List<Bachelor> filteredProfiles = [];
+
+    for (Bachelor profile in _profiles) {
+      if (checkboxStates[0] && profile.gender == Gender.Homme) {
+        filteredProfiles.add(profile);
+      } else if (checkboxStates[1] && profile.gender == Gender.Femme) {
+        filteredProfiles.add(profile);
+      } else if (checkboxStates[2] && profile.gender == Gender.NonBinaire) {
+        filteredProfiles.add(profile);
+      }
+    }
+
+    return filteredProfiles;
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<Bachelor> filteredProfiles = filterProfiles();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -93,17 +112,49 @@ class _MyHomePageState extends State<BachelorPreview> {
         ],
       ),
       body: SingleChildScrollView(
-        child: Consumer<LikedProfileProvider>(
-          builder: (context, profileProvider, _) {
-            return Column(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ListView.builder(
+                const Text("Homme"),
+                Checkbox(
+                  value: checkboxStates[0],
+                  onChanged: (value) {
+                    setState(() {
+                      checkboxStates[0] = value!;
+                    });
+                  },
+                ),
+                const Text("Femme"),
+                Checkbox(
+                  value: checkboxStates[1],
+                  onChanged: (value) {
+                    setState(() {
+                      checkboxStates[1] = value!;
+                    });
+                  },
+                ),
+                const Text("Non binaire"),
+                Checkbox(
+                  value: checkboxStates[2],
+                  onChanged: (value) {
+                    setState(() {
+                      checkboxStates[2] = value!;
+                    });
+                  },
+                ),
+              ],
+            ),
+            Consumer<LikedProfileProvider>(
+              builder: (context, profileProvider, _) {
+                return ListView.builder(
                   shrinkWrap: true,
-                  itemCount: _profiles.length,
+                  itemCount: filteredProfiles.length,
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                        Bachelor selectedPerson = _profiles[index];
+                        Bachelor selectedPerson = filteredProfiles[index];
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -115,32 +166,32 @@ class _MyHomePageState extends State<BachelorPreview> {
                         );
                       },
                       child: ListTile(
-                        tileColor: getTileColor(index, _profiles),
+                        tileColor: getTileColor(index, filteredProfiles),
                         textColor: Colors.white,
-                        leading: Image.asset(_profiles[index].avatar),
+                        leading: Image.asset(filteredProfiles[index].avatar),
                         title: Row(
                           children: [
                             Text(
-                                "${_profiles[index].firstname} ${_profiles[index].age} ans"),
+                                "${filteredProfiles[index].firstname} ${filteredProfiles[index].age} ans"),
                             const SizedBox(width: 10),
                             Image.asset(
-                              getOnlineStatus(index, _profiles),
+                              getOnlineStatus(index, filteredProfiles),
                               width: 10,
                               height: 10,
                             ),
                             IconButton(
                                 onPressed: () => _dislikeProfile(
-                                    _profiles[index], _profiles),
+                                    filteredProfiles[index], _profiles),
                                 icon: const Icon(Icons.delete_forever))
                           ],
                         ),
                       ),
                     );
                   },
-                ),
-              ],
-            );
-          },
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

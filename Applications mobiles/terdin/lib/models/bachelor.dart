@@ -191,13 +191,13 @@ class Bachelor {
   }
 
   static Gender generateGender() {
-    int randomNumber = returnRandomNumber(2);
-    if (randomNumber == 0) {
-      return Gender.NonBinaire;
-    } else if (randomNumber == 1) {
+    int randomNumber = returnRandomNumber(5);
+    if (randomNumber == 1 || randomNumber == 2) {
       return Gender.Homme;
-    } else {
+    } else if (randomNumber == 3 || randomNumber == 4) {
       return Gender.Femme;
+    } else {
+      return Gender.NonBinaire;
     }
   }
 
