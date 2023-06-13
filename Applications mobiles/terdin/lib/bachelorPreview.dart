@@ -15,7 +15,6 @@ class BachelorPreview extends StatefulWidget {
 
 class _MyHomePageState extends State<BachelorPreview> {
   final _profiles = Bachelor.generateRandomProfiles(30);
-  List<Bachelor> likedBachelors = [];
 
   Color? getTileColor(int index, List<Bachelor> bachelors) {
     if (bachelors[index].isLiked) {
@@ -30,6 +29,12 @@ class _MyHomePageState extends State<BachelorPreview> {
   }
 
   void _dislikeProfile(Bachelor bachelorDisliked, List<Bachelor> bachelors) {
+    if (bachelorDisliked.isLiked) {
+      LikedProfileProvider profileProvider =
+          Provider.of<LikedProfileProvider>(context, listen: false);
+      profileProvider.unlikeProfile(bachelorDisliked);
+    }
+
     bachelors.remove(bachelorDisliked);
     setState(() {});
   }
