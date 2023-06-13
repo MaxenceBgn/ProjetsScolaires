@@ -16,6 +16,7 @@ class BachelorPreview extends StatefulWidget {
 class _MyHomePageState extends State<BachelorPreview> {
   final _profiles = Bachelor.generateRandomProfiles(30);
   List<bool> checkboxStates = [true, true, true];
+  String searchQuery = '';
 
   Color? getTileColor(int index, List<Bachelor> bachelors) {
     if (bachelors[index].isLiked) {
@@ -49,19 +50,24 @@ class _MyHomePageState extends State<BachelorPreview> {
   }
 
   List<Bachelor> filterProfiles() {
-    List<Bachelor> filteredProfiles = [];
+    List<Bachelor> filteredList = [];
 
-    for (Bachelor profile in _profiles) {
-      if (checkboxStates[0] && profile.gender == Gender.Homme) {
-        filteredProfiles.add(profile);
-      } else if (checkboxStates[1] && profile.gender == Gender.Femme) {
-        filteredProfiles.add(profile);
-      } else if (checkboxStates[2] && profile.gender == Gender.NonBinaire) {
-        filteredProfiles.add(profile);
+    // Filtre les profils en fonction des cases à cocher et du nom
+    for (int i = 0; i < _profiles.length; i++) {
+      final profile = _profiles[i];
+      if ((checkboxStates[0] && profile.gender == Gender.Homme) ||
+          (checkboxStates[1] && profile.gender == Gender.Femme) ||
+          (checkboxStates[2] && profile.gender == Gender.NonBinaire)) {
+        if (searchQuery.isEmpty ||
+            profile.firstname
+                .toLowerCase()
+                .contains(searchQuery.toLowerCase())) {
+          filteredList.add(profile);
+        }
       }
     }
 
-    return filteredProfiles;
+    return filteredList;
   }
 
   @override
@@ -146,12 +152,31 @@ class _MyHomePageState extends State<BachelorPreview> {
                 ),
               ],
             ),
+            TextField(
+              onChanged: (value) {
+                setState(() {
+                  searchQuery = value;
+                });
+              },
+              decoration: const InputDecoration(
+                labelText: 'Rechercher par nom',
+              ),
+            ),
             Consumer<LikedProfileProvider>(
               builder: (context, profileProvider, _) {
                 return ListView.builder(
                   shrinkWrap: true,
                   itemCount: filteredProfiles.length,
                   itemBuilder: (context, index) {
+                    final profile = filteredProfiles[index];
+
+                    // Filtre les profils en fonction de la valeur de recherche
+                    if (searchQuery.isNotEmpty &&
+                        !profile.firstname
+                            .toLowerCase()
+                            .contains(searchQuery.toLowerCase())) {
+                      return Container(); // Retourne un widget vide si le profil ne correspond pas à la recherche
+                    }
                     return InkWell(
                       onTap: () {
                         Bachelor selectedPerson = filteredProfiles[index];

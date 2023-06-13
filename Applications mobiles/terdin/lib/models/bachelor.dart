@@ -202,7 +202,7 @@ class Bachelor {
   }
 
   static int generateAge() {
-    Random random = new Random();
+    Random random = Random();
     return random.nextInt(43) + 18;
   }
 
