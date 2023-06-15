@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class TasksPreview extends StatefulWidget {
-  const TasksPreview({super.key, required this.title});
+class TaskPreview extends StatefulWidget {
+  const TaskPreview({super.key, required this.title});
 
   final String title;
 
   @override
-  State<TasksPreview> createState() => _TaskMasterPageState();
+  State<TaskPreview> createState() => _TaskMasterPageState();
 }
 
-class _TaskMasterPageState extends State<TasksPreview> {
+class _TaskMasterPageState extends State<TaskPreview> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
