@@ -1,34 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/models/task.dart';
+import 'package:intl/intl.dart';
 
 class TaskDetails extends StatefulWidget {
-  const TaskDetails({super.key, required this.title});
-
-  final String title;
+  const TaskDetails({Key? key, required this.task}) : super(key: key);
+  final Task task;
 
   @override
-  State<TaskDetails> createState() => _TaskMasterPageState();
+  _TaskDetailsState createState() => _TaskDetailsState();
 }
 
-class _TaskMasterPageState extends State<TaskDetails> {
-  List<String> itemList = ['Item 1', 'Item 2', 'Item 3'];
-
+class _TaskDetailsState extends State<TaskDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: const Text("Détail d'une tâche"),
       ),
-      body: const Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text("Aller promener le chien"),
-            Text("Créateur de la tâche : Maxence BOURGIN"),
-            Text("Créée le 15.06.2023"),
-            Text("DeadLine : tâche a effectuer pour le 15.06.2023"),
+            Text(widget.task.title),
+            const Text("Créateur de la tâche : Maxence BOURGIN"),
             Text(
-                "Description de la tâche : Sortir promener Taika pour une ballade d'au moins une heure au parc de Courcelles-Chaussy.")
+                "Créée le ${DateFormat('dd.MM.yyyy').format(widget.task.createdAt)}"),
+            Text(
+                "DeadLine : tâche à effectuer pour le ${DateFormat('dd.MM.yyyy').format(widget.task.deadLine)}"),
+            Text("Description de la tâche : ${widget.task.content}")
           ],
         ),
       ),

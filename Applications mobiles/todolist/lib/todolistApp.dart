@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:todolist/screens/taskform.dart';
+import 'package:todolist/models/task.dart';
 import 'package:todolist/screens/taskmaster.dart';
 
 class TodolistApp extends StatelessWidget {
-  const TodolistApp({super.key});
+  const TodolistApp({Key? key, required this.tasks}) : super(key: key);
+
+  final List<Task> tasks;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,9 @@ class TodolistApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const TaskForm(title: 'Todo List'),
+      home: TasksMaster(
+        tasks: tasks,
+      ),
     );
   }
 }

@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/models/task.dart';
+import 'package:todolist/screens/taskdetails.dart';
 
 class TasksMaster extends StatefulWidget {
-  const TasksMaster({super.key, required this.title});
+  const TasksMaster({super.key, required this.tasks});
 
-  final String title;
+  final List<Task> tasks;
 
   @override
   State<TasksMaster> createState() => _TaskMasterPageState();
 }
 
 class _TaskMasterPageState extends State<TasksMaster> {
-  List<String> itemList = ['Item 1', 'Item 2', 'Item 3'];
+  //Definition de données de tests
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: const Text("Affichage des tâches"),
       ),
       body: Center(
         child: Column(
@@ -25,10 +27,20 @@ class _TaskMasterPageState extends State<TasksMaster> {
           children: <Widget>[
             Expanded(
               child: ListView.builder(
-                itemCount: itemList.length,
+                itemCount: widget.tasks.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: Text(itemList[index]),
+                    title: Text(widget.tasks[index].title),
+                    onTap: () {
+                      // Naviguer vers la page de détails
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              TaskDetails(task: widget.tasks[index]),
+                        ),
+                      );
+                    },
                   );
                 },
               ),
