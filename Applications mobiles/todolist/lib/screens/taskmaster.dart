@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:todolist/models/task.dart';
 import 'package:todolist/providers/taskprovider.dart';
 import 'package:todolist/screens/taskdetails.dart';
+import 'package:todolist/screens/taskform.dart';
 
 class TasksMaster extends StatefulWidget {
   const TasksMaster({super.key});
@@ -12,50 +13,60 @@ class TasksMaster extends StatefulWidget {
 }
 
 class _TaskMasterPageState extends State<TasksMaster> {
-  //Definition de données de tests
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: const Text("Affichage des tâches"),
-        ),
-        body: Consumer<TaskProvider>(builder: (context, taskProvider, _) {
-          List<Task> tasks = taskProvider.tasks;
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text("Affichage des tâches"),
+      ),
+      body: Consumer<TaskProvider>(builder: (context, taskProvider, _) {
+        List<Task> tasks = taskProvider.tasks;
 
-          return Column(
-            children: [
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: tasks.length,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      Task selectedTask = tasks[index];
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TaskDetails(
-                            task: selectedTask,
-                          ),
+        return Column(
+          children: [
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: tasks.length,
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: () {
+                    Task selectedTask = tasks[index];
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TaskDetails(
+                          task: selectedTask,
                         ),
-                      );
-                    },
-                    child: ListTile(
-                      tileColor: Colors.blueAccent,
-                      textColor: Colors.white,
-                      title: Row(
-                        children: [
-                          Text(tasks[index].title),
-                        ],
                       ),
+                    );
+                  },
+                  child: ListTile(
+                    tileColor: const Color.fromARGB(255, 218, 215, 215),
+                    textColor: const Color.fromARGB(255, 51, 51, 51),
+                    title: Row(
+                      children: [
+                        Text(tasks[index].title),
+                      ],
                     ),
-                  );
-                },
-              ),
-            ],
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const TaskForm(),
+            ),
           );
-        }));
+        },
+        child: const Icon(Icons.add),
+      ),
+    );
   }
 }

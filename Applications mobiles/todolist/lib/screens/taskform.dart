@@ -1,18 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todolist/models/task.dart';
+import 'package:todolist/providers/taskprovider.dart';
+import 'package:todolist/screens/taskmaster.dart';
 
 class TaskForm extends StatefulWidget {
-  const TaskForm({super.key, required this.title});
-
-  final String title;
+  const TaskForm({super.key});
 
   @override
-  State<TaskForm> createState() => _TaskFormPageState();
+  // ignore: library_private_types_in_public_api
+  _TaskFormPageState createState() => _TaskFormPageState();
 }
 
 class _TaskFormPageState extends State<TaskForm> {
   final _formKey = GlobalKey<FormState>();
   String _taskName = '';
   String _description = '';
+
+  void _createTask(String title, String content) {
+    Task newTask = Task();
+    newTask.title = title;
+    newTask.content = content;
+
+    Provider.of<TaskProvider>(context, listen: false).createTask(newTask);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,10 +74,14 @@ class _TaskFormPageState extends State<TaskForm> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    // Do something with the form data
-                    print('Nom: $_taskName');
-                    print('Description: $_description');
+                    _createTask(_taskName, _description);
                   }
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TasksMaster(),
+                    ),
+                  );
                 },
                 child: const Text('Créer'),
               ),

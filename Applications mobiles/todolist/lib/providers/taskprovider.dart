@@ -7,6 +7,11 @@ class TaskProvider extends ChangeNotifier {
   var uuid = const Uuid(options: {'grng': UuidUtil.cryptoRNG});
   List<Task> tasks = [];
 
+  void createTask(Task newTask) {
+    tasks.add(newTask);
+    notifyListeners();
+  }
+
   TaskProvider() {
     Task task1 = Task();
     task1.title = "Signer dossier de paiement";
