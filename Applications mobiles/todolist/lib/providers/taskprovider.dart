@@ -12,6 +12,11 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void deleteTask(Task taskToDelete) {
+    tasks.remove(taskToDelete);
+    notifyListeners();
+  }
+
   TaskProvider() {
     Task task1 = Task();
     task1.title = "Signer dossier de paiement";

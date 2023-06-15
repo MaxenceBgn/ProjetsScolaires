@@ -13,6 +13,10 @@ class TasksMaster extends StatefulWidget {
 }
 
 class _TaskMasterPageState extends State<TasksMaster> {
+  void _deleteTask(Task taskToDelete) {
+    Provider.of<TaskProvider>(context, listen: false).deleteTask(taskToDelete);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,27 +34,36 @@ class _TaskMasterPageState extends State<TasksMaster> {
               itemCount: tasks.length,
               itemBuilder: (context, index) {
                 return InkWell(
-                  onTap: () {
-                    Task selectedTask = tasks[index];
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => TaskDetails(
-                          task: selectedTask,
+                    onTap: () {
+                      Task selectedTask = tasks[index];
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TaskDetails(
+                            task: selectedTask,
+                          ),
                         ),
+                      );
+                    },
+                    child: ListTile(
+                      tileColor: const Color.fromARGB(255, 218, 215, 215),
+                      textColor: const Color.fromARGB(255, 51, 51, 51),
+                      title: Row(
+                        children: [
+                          Text(tasks[index].title),
+                          const Spacer(),
+                          IconButton(
+                            onPressed: () {
+                              _deleteTask(tasks[index]);
+                            },
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Color.fromARGB(255, 145, 10, 0),
+                            ),
+                          )
+                        ],
                       ),
-                    );
-                  },
-                  child: ListTile(
-                    tileColor: const Color.fromARGB(255, 218, 215, 215),
-                    textColor: const Color.fromARGB(255, 51, 51, 51),
-                    title: Row(
-                      children: [
-                        Text(tasks[index].title),
-                      ],
-                    ),
-                  ),
-                );
+                    ));
               },
             ),
           ],
