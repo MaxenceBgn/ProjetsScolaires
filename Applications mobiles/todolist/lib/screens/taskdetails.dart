@@ -23,6 +23,7 @@ class _TaskDetailsState extends State<TaskDetails> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(widget.task.title),
+            Text("Id tâche : ${widget.task.id}"),
             const Text("Créateur de la tâche : Maxence BOURGIN"),
             Text(
                 "Créée le ${DateFormat('dd.MM.yyyy').format(widget.task.createdAt)}"),
