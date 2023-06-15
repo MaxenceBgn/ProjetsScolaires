@@ -4,6 +4,7 @@ import 'package:todolist/models/task.dart';
 import 'package:intl/intl.dart';
 import 'package:todolist/providers/taskprovider.dart';
 import 'package:todolist/screens/taskmaster.dart';
+import 'package:todolist/screens/taskmodifyform.dart';
 
 class TaskDetails extends StatefulWidget {
   const TaskDetails({Key? key, required this.task}) : super(key: key);
@@ -57,7 +58,14 @@ class _TaskDetailsState extends State<TaskDetails> {
                 const SizedBox(width: 16),
                 IconButton(
                   onPressed: () {
-                    // Action à effectuer lors du clic sur l'icône "modifier"
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TaskModifyForm(
+                          taskToModify: widget.task,
+                        ),
+                      ),
+                    );
                   },
                   icon: const Icon(Icons.edit),
                 ),

@@ -17,6 +17,14 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateTask(Task updatedTask) {
+    int index = tasks.indexWhere((task) => task.id == updatedTask.id);
+    if (index != -1) {
+      tasks[index] = updatedTask;
+      notifyListeners();
+    }
+  }
+
   TaskProvider() {
     Task task1 = Task();
     task1.title = "Signer dossier de paiement";
