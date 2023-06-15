@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todolist/screens/taskdetails.dart';
-import 'package:todolist/screens/taskpreview.dart';
+import 'package:todolist/screens/taskform.dart';
+import 'package:todolist/screens/taskmaster.dart';
 
 class TodolistApp extends StatelessWidget {
   const TodolistApp({super.key});
@@ -14,7 +14,7 @@ class TodolistApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const TaskPreview(title: 'Todo List'),
+      home: const TaskForm(title: 'Todo List'),
     );
   }
 }
