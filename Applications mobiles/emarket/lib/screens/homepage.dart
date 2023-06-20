@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:emarket/models/product.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
@@ -10,8 +11,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<HomePage> {
-  int _counter = 0;
+  List<Product> productList = [];
 
+  @override
+  void initState() {
+    super.initState();
+    fetchProducts();
+  }
+
+  void fetchProducts() async {
+    productList = await Product.fetchProducts();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +34,17 @@ class _MyHomePageState extends State<HomePage> {
       body: Center(
         child: Column(
           children: [
-            SingleChildScrollView(
-              child: ,
-            )
+            Expanded(
+              child: ListView.builder(
+                itemCount: productList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    title: Text(productList[index].title),
+                    // Autres widgets à ajouter dans la tuile
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),

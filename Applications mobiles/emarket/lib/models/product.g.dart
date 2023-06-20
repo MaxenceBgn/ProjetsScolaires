@@ -12,7 +12,7 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       description: json['description'] as String,
       price: (json['price'] as num).toDouble(),
       discountPercentage: (json['discountPercentage'] as num).toDouble(),
-      rating: json['rating'] as int,
+      rating: json['rating'] as num,
       stock: json['stock'] as int,
       brand: json['brand'] as String,
       category: json['category'] as String,
