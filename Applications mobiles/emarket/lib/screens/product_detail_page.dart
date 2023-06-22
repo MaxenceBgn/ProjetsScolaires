@@ -70,8 +70,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             Text(
               'Stock: ${widget.product.stock}',
               style: TextStyle(
-                color: stockColor() ??
-                    Colors.black, // Utilisation de l'opérateur de null-aware
+                color: stockColor(),
                 fontSize: 16,
               ),
             ),
