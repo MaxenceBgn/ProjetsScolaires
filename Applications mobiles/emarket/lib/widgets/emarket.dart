@@ -10,7 +10,8 @@ class EMarket extends StatelessWidget {
       title: 'Maxou Shop',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme:
+            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 24, 146, 34)),
         useMaterial3: true,
       ),
       home: const ProductListPage(title: 'Maxou Shop'),

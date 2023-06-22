@@ -16,4 +16,8 @@ class CartProvider extends ChangeNotifier {
     _cart.removeFromCart(product);
     notifyListeners();
   }
+
+  int getCartItemCount() {
+    return _cart.itemCount;
+  }
 }
