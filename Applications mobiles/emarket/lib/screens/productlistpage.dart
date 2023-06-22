@@ -1,4 +1,5 @@
 import 'package:emarket/models/providers/cartprovider.dart';
+import 'package:emarket/screens/cart_page.dart';
 import 'package:emarket/screens/product_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:emarket/models/product.dart';
@@ -39,6 +40,19 @@ class _MyHomePageState extends State<ProductListPage> {
           appBar: AppBar(
             backgroundColor: Theme.of(context).colorScheme.inversePrimary,
             title: Text(widget.title),
+            actions: [
+              IconButton(
+                icon: Icon(Icons.shopping_cart),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CartPage(),
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
           body: Center(
             child: Column(
