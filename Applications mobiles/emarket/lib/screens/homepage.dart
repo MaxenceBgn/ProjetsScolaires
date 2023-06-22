@@ -2,17 +2,18 @@ import 'package:emarket/screens/product_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:emarket/models/product.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.title});
+class ProductListPage extends StatefulWidget {
+  const ProductListPage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<HomePage> createState() => _MyHomePageState();
+  State<ProductListPage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<HomePage> {
+class _MyHomePageState extends State<ProductListPage> {
   List<Product> productList = [];
+  int selectedTileIndex = -1;
 
   @override
   void initState() {
@@ -39,9 +40,11 @@ class _MyHomePageState extends State<HomePage> {
               child: ListView.builder(
                 itemCount: productList.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
+                  return InkWell(
                     onTap: () {
-                      // Navigate to the detail page with the selected product
+                      setState(() {
+                        selectedTileIndex = index;
+                      });
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -51,7 +54,16 @@ class _MyHomePageState extends State<HomePage> {
                       );
                     },
                     child: ListTile(
+                      leading: Image.network(
+                        productList[index].images[0],
+                        width: 40,
+                        height: 40,
+                      ),
                       title: Text(productList[index].title),
+                      tileColor: index == selectedTileIndex
+                          ? Colors.blue.withOpacity(
+                              0.2) // Couleur de mise en évidence de la tuile sélectionnée
+                          : null,
                     ),
                   );
                 },
