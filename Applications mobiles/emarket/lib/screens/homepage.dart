@@ -1,3 +1,4 @@
+import 'package:emarket/screens/product_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:emarket/models/product.dart';
 
@@ -38,9 +39,20 @@ class _MyHomePageState extends State<HomePage> {
               child: ListView.builder(
                 itemCount: productList.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    title: Text(productList[index].title),
-                    // Autres widgets à ajouter dans la tuile
+                  return GestureDetector(
+                    onTap: () {
+                      // Navigate to the detail page with the selected product
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ProductDetailPage(product: productList[index]),
+                        ),
+                      );
+                    },
+                    child: ListTile(
+                      title: Text(productList[index].title),
+                    ),
                   );
                 },
               ),
