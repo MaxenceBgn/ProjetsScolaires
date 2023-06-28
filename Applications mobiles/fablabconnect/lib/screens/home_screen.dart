@@ -35,18 +35,47 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  Color? getTileColor(int index, List<dynamic> users) {
+    if (index % 2 == 0) {
+      return Color.fromARGB(255, 117, 122, 115);
+    } else {
+      return Color.fromARGB(255, 141, 141, 140);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        title: const Text("Liste des utilisateurs"),
+        backgroundColor: Colors.transparent,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF008E00),
+                Color(0xFFFFD700),
+              ],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+          ),
+        ),
+        title: const Text(
+          "Liste des utilisateurs",
+          style: TextStyle(
+            color: Color.fromARGB(255, 253, 243, 243),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: ListView.builder(
+        shrinkWrap: true,
         itemCount: users.length,
-        itemBuilder: (BuildContext context, int index) {
+        itemBuilder: (context, index) {
           final user = users[index];
-          return GestureDetector(
+          bool isHovered = false;
+
+          return InkWell(
             onTap: () {
               Navigator.push(
                 context,
@@ -55,7 +84,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               );
             },
+            onHover: (value) {
+              setState(() {
+                isHovered = value;
+              });
+            },
             child: ListTile(
+              tileColor: isHovered
+                  // ignore: dead_code
+                  ? const Color.fromARGB(255, 35, 95, 38)
+                  : getTileColor(index, users),
               title: Text(user['Prenom']),
               subtitle: Text(user['Nom']),
             ),

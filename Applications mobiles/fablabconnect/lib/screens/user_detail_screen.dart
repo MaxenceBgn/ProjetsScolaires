@@ -43,73 +43,122 @@ class ProfileDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 0, 183, 6),
         title: Text('${profile['Prenom']} ${profile['Nom']}'),
       ),
       body: ListView(
-        padding: EdgeInsets.only(top: 20),
+        padding: const EdgeInsets.only(top: 20),
         children: [
           Center(
-            child: Container(
+            child: SizedBox(
               width: 100,
               height: 100,
               child: choiceImage(profile['Sexe']),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Center(
-            child: Text(
-              'Prénom: ${profile['Prenom']}',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          Center(
-            child: Text(
-              'Nom: ${profile['Nom']}',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          Center(
-            child: Text('Sexe: ${profile['Sexe']}'),
-          ),
-          Center(
-            child: Text('Âge : ${profile['Age']}'),
-          ),
-          Center(
-            child: Text('Email : ${profile['Email']}'),
-          ),
-          Center(
-            child: Text(
-              'Date d\'inscription : ${formatDate(profile['DateInscription'])}',
-            ),
-          ),
-          SizedBox(height: 20),
-          Center(
-            child: Text(
-              'Dernière connexion : ${formatDate(profile['DerniereConnexion'])}',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          Center(
-            child: Text(
-              'Temps total de connexion depuis son inscription : ${formatConnectionTime(profile['TempsTotalConnexion'])}',
-            ),
-          ),
-          SizedBox(height: 20),
-          Center(
-            child: Text(
-              'Temps de connexion ce mois-ci : ${formatConnectionTime(profile['TempsConnexionDernierMois'])}',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          Center(
-            child: Text(
-              'Nombre total de connexions : ${profile['NombreTotalConnexions']}',
-            ),
-          ),
-          Center(
-            child: Text(
-              'Nombre de connexions ce mois-ci : ${profile['NombreConnexionsDernierMois']}',
-              style: TextStyle(fontWeight: FontWeight.bold),
+            child: DefaultTextStyle(
+              style: const TextStyle(fontSize: 18),
+              child: Column(
+                children: [
+                  Column(
+                    children: [
+                      FractionallySizedBox(
+                        widthFactor: 0.8, // 80% de la largeur parente
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Colors.blue), // Couleur de la bordure
+                            borderRadius: BorderRadius.circular(
+                                8), // Coins arrondis de la bordure
+                          ),
+                          padding: const EdgeInsets.all(
+                              20), // Espacement intérieur de 20 pixels
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Prénom: ${profile['Prenom']}',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold)),
+                              Text('Nom: ${profile['Nom']}',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold)),
+                              Text('Sexe: ${profile['Sexe']}'),
+                              Text('Âge : ${profile['Age']}'),
+                              Text('Email : ${profile['Email']}'),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      FractionallySizedBox(
+                        widthFactor: 0.8, // 80% de la largeur parente
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Colors.blue), // Couleur de la bordure
+                            borderRadius: BorderRadius.circular(
+                                8), // Coins arrondis de la bordure
+                          ),
+                          padding: const EdgeInsets.all(
+                              20), // Espacement intérieur de 20 pixels
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Date d\'inscription : ${formatDate(profile['DateInscription'])}',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                'Dernière connexion : ${formatDate(profile['DerniereConnexion'])}',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                'Temps total de connexion depuis son inscription : \n${formatConnectionTime(profile['TempsTotalConnexion'])}',
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      FractionallySizedBox(
+                        widthFactor: 0.8, // 80% de la largeur parente
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Colors.blue), // Couleur de la bordure
+                            borderRadius: BorderRadius.circular(
+                                8), // Coins arrondis de la bordure
+                          ),
+                          padding: const EdgeInsets.all(
+                              20), // Espacement intérieur de 20 pixels
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Temps de connexion ce mois-ci : ${formatConnectionTime(profile['TempsConnexionDernierMois'])}',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                'Nombre total de connexions : ${profile['NombreTotalConnexions']}',
+                              ),
+                              Text(
+                                'Nombre de connexions ce mois-ci : ${profile['NombreConnexionsDernierMois']}',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ],
