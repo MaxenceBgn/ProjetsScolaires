@@ -1,10 +1,23 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 
+// ignore: must_be_immutable
 class ProfileDetailsScreen extends StatelessWidget {
   final dynamic profile;
+  String currentFirstName;
+  String currentLastName;
+  final Function updateUser;
 
-  const ProfileDetailsScreen({super.key, required this.profile});
+  ProfileDetailsScreen({
+    Key? key,
+    required this.profile,
+    required this.currentFirstName,
+    required this.currentLastName,
+    required this.updateUser,
+  });
 
   String formatDate(String dateString) {
     DateTime date = DateTime.parse(dateString);
@@ -39,12 +52,114 @@ class ProfileDetailsScreen extends StatelessWidget {
     }
   }
 
+  Future<void> updateProfile(
+      int id, String newFirstName, String newLastName) async {
+    const username = 'root';
+    const password = 'root';
+
+    final basicAuth =
+        'Basic ${base64Encode(utf8.encode('$username:$password'))}';
+
+    final response = await http.patch(
+      Uri.parse('http://localhost:3000/api/utilisateurs/$id'),
+      headers: {'authorization': basicAuth},
+      body: {
+        'Prenom': newFirstName,
+        'Nom': newLastName,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      updateUser(newFirstName, newLastName);
+    } else {
+      print('Erreur lors de la mise à jour du profil : ${response.statusCode}');
+    }
+  }
+
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    String newFirstName = currentFirstName;
+    String newLastName = currentLastName;
+    currentFirstName = profile['Prenom'];
+    currentLastName = profile['Nom'];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 0, 183, 6),
         title: Text('${profile['Prenom']} ${profile['Nom']}'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: const Text('Modifier le profil'),
+                    content: StatefulBuilder(
+                      builder: (BuildContext context, StateSetter setState) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            TextField(
+                              decoration: const InputDecoration(
+                                labelText: 'Nouveau prénom',
+                              ),
+                              onChanged: (value) {
+                                setState(() {
+                                  newFirstName = value;
+                                });
+                              },
+                              controller: firstNameController,
+                            ),
+                            TextField(
+                              decoration: const InputDecoration(
+                                labelText: 'Nouveau nom',
+                              ),
+                              onChanged: (value) {
+                                setState(() {
+                                  newLastName = value;
+                                });
+                              },
+                              controller: lastNameController,
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                    actions: [
+                      TextButton(
+                        child: const Text('Annuler'),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      TextButton(
+                        child: const Text('Enregistrer'),
+                        onPressed: () {
+                          if (newFirstName.isNotEmpty &&
+                              newLastName.isNotEmpty) {
+                            updateProfile(
+                                    profile['ID'], newFirstName, newLastName)
+                                .then((_) {
+                              Navigator.pop(context, {
+                                'newFirstName': newFirstName,
+                                'newLastName': newLastName,
+                              });
+                            });
+                          }
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+          ),
+        ],
       ),
       body: ListView(
         padding: const EdgeInsets.only(top: 20),

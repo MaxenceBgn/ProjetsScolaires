@@ -14,6 +14,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<dynamic> users = [];
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
 
   @override
   void initState() {
@@ -37,10 +39,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Color? getTileColor(int index, List<dynamic> users) {
     if (index % 2 == 0) {
-      return Color.fromARGB(255, 117, 122, 115);
+      return const Color.fromARGB(255, 117, 122, 115);
     } else {
-      return Color.fromARGB(255, 141, 141, 140);
+      return const Color.fromARGB(255, 141, 141, 140);
     }
+  }
+
+  void updateUser(String userId, String newFirstName, String newLastName) {
+    setState(() {
+      final index = users.indexWhere((user) => user['ID'] == userId);
+      final updatedUser = {
+        ...users[index],
+        'Prenom': newFirstName,
+        'Nom': newLastName,
+      };
+      users[index] = updatedUser;
+    });
   }
 
   @override
@@ -80,22 +94,42 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ProfileDetailsScreen(profile: user),
+                  builder: (context) => ProfileDetailsScreen(
+                    profile: user,
+                    currentFirstName: user['Prenom'],
+                    currentLastName: user['Nom'],
+                    updateUser: updateUser,
+                  ),
                 ),
-              );
+              ).then((result) {
+                if (result != null) {
+                  String newFirstName = result['newFirstName'];
+                  String newLastName = result['newLastName'];
+                  if (newFirstName != null && newLastName != null) {
+                    updateUser(user['ID'], newFirstName, newLastName);
+                  }
+                }
+              });
             },
             onHover: (value) {
               setState(() {
                 isHovered = value;
               });
             },
-            child: ListTile(
-              tileColor: isHovered
-                  // ignore: dead_code
-                  ? const Color.fromARGB(255, 35, 95, 38)
-                  : getTileColor(index, users),
-              title: Text(user['Prenom']),
-              subtitle: Text(user['Nom']),
+            child: Container(
+              color: isHovered ? Colors.grey[300] : getTileColor(index, users),
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      '${user['Prenom']} ${user['Nom']}',
+                      style: const TextStyle(fontSize: 18.0),
+                    ),
+                  ),
+                  const Icon(Icons.arrow_forward),
+                ],
+              ),
             ),
           );
         },
