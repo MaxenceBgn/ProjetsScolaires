@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'statistics_total.dart';
 
 // ignore: must_be_immutable
 class GlobalStatsScreen extends StatelessWidget {
@@ -55,7 +56,7 @@ class GlobalStatsScreen extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  GlobalStatsScreen(users: users),
+                                  TotalStatsScreen(users: users),
                             ),
                           );
                         },
