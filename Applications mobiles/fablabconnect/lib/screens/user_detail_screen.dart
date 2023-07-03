@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
+import 'package:pdf/widgets.dart' as pw;
 
 // ignore: must_be_immutable
 class ProfileDetailsScreen extends StatelessWidget {
@@ -70,10 +71,52 @@ class ProfileDetailsScreen extends StatelessWidget {
     );
 
     if (response.statusCode == 200) {
-      updateUser(newFirstName, newLastName);
+      currentFirstName = newFirstName;
+      currentLastName = newLastName;
     } else {
       print('Erreur lors de la mise à jour du profil : ${response.statusCode}');
     }
+  }
+
+  pw.Widget _buildProfileContent(dynamic profile) {
+    return pw.Column(
+      crossAxisAlignment: pw.CrossAxisAlignment.start,
+      children: [
+        pw.Text('Prénom: ${profile['Prenom']}'),
+        pw.Text('Nom: ${profile['Nom']}'),
+        pw.Text('Sexe: ${profile['Sexe']}'),
+      ],
+    );
+  }
+
+  pw.Document _generatePdfDocument(dynamic profile) {
+    final pdf = pw.Document();
+
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) {
+          return pw.Center(
+            child: pw.Container(
+              padding: pw.EdgeInsets.all(20),
+              child: _buildProfileContent(profile),
+            ),
+          );
+        },
+      ),
+    );
+
+    return pdf;
+  }
+
+  void _generatePdfButtonPressed(dynamic profile) {
+    final pdf = _generatePdfDocument(profile);
+
+    // Enregistre le PDF sur l'appareil
+    pdf.save().then((value) {
+      print('PDF généré avec succès');
+    }).catchError((error) {
+      print('Erreur lors de la génération du PDF : $error');
+    });
   }
 
   final TextEditingController firstNameController = TextEditingController();
@@ -269,6 +312,12 @@ class ProfileDetailsScreen extends StatelessWidget {
                             ],
                           ),
                         ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          _generatePdfButtonPressed(profile);
+                        },
+                        child: Text('Générer PDF'),
                       ),
                     ],
                   ),

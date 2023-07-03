@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'user_detail_screen.dart';
+import 'package:flutter/cupertino.dart';
+import 'statistics_globals.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key, required this.title}) : super(key: key);
@@ -14,8 +16,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<dynamic> users = [];
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
 
   @override
   void initState() {
@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> fetchData() async {
+    //Récupération de tous les utilisateurs de la base de données
     final response = await http
         .get(Uri.parse('http://localhost:3000/api/utilisateurs/distinct'));
     if (response.statusCode == 200) {
@@ -45,7 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  void updateUser(String userId, String newFirstName, String newLastName) {
+  void updateUser(int userId, String newFirstName, String newLastName) {
+    //Changement de nom ou de prénom d'un utilisateur
     setState(() {
       final index = users.indexWhere((user) => user['ID'] == userId);
       final updatedUser = {
@@ -81,6 +83,19 @@ class _HomeScreenState extends State<HomeScreen> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(CupertinoIcons.chart_bar),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => GlobalStatsScreen(users: users),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: ListView.builder(
         shrinkWrap: true,
@@ -105,6 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (result != null) {
                   String newFirstName = result['newFirstName'];
                   String newLastName = result['newLastName'];
+                  // ignore: unnecessary_null_comparison
                   if (newFirstName != null && newLastName != null) {
                     updateUser(user['ID'], newFirstName, newLastName);
                   }
@@ -117,6 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
               });
             },
             child: Container(
+              // ignore: dead_code
               color: isHovered ? Colors.grey[300] : getTileColor(index, users),
               padding: const EdgeInsets.all(16.0),
               child: Row(
