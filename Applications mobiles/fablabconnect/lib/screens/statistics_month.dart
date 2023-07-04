@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
-class TotalStatsScreen extends StatelessWidget {
-  final List<dynamic> users;
+class MonthStatsScreen extends StatelessWidget {
+  List<dynamic> users;
   int percentageMale = 0;
   int averageAge = 0;
   int totalConnexionNumber = 0;
   String totalConnexionHours = '';
 
-  TotalStatsScreen({super.key, required this.users});
+  MonthStatsScreen({super.key, required this.users});
 
   String formatDate(String dateString) {
     //Convertie un DateTime en String exploitable
@@ -74,8 +74,29 @@ class TotalStatsScreen extends StatelessWidget {
     return connectionHours;
   }
 
+  List<dynamic> returnMonthUserList() {
+    //On fait le tri dans la liste des users, on ne garde que ceux qui se sont connectés au moins une fois ce mois-ci
+    List<dynamic> usersMonth = [];
+
+    DateTime now = DateTime.now();
+    DateTime firstDayOfMonth = DateTime(now.year, now.month, 1);
+
+    if (users.isNotEmpty) {
+      for (var i = 0; i < users.length; i++) {
+        DateTime lastConnection = DateTime.parse(users[i]['DerniereConnexion']);
+        if (lastConnection.isAfter(firstDayOfMonth) ||
+            lastConnection.isAtSameMomentAs(firstDayOfMonth)) {
+          usersMonth.add(users[i]);
+        }
+      }
+    }
+
+    return usersMonth;
+  }
+
   void initializeVariables() {
     //Initialisation de toutes les variables nécessaires
+    users = returnMonthUserList();
     averageAge = calculateAverageAge();
     percentageMale = returnPercentageOfMale();
     totalConnexionNumber = returnTotalConnectionNumber();
@@ -85,15 +106,14 @@ class TotalStatsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    initializeVariables();
     final int userNumber = users.length;
     final String userNumberString = userNumber.toString();
-
-    initializeVariables();
 
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 0, 183, 6),
-          title: const Text('Statistiques de tous les utilisateurs'),
+          title: const Text('Statistiques des utilisateurs du mois'),
         ),
         body: SingleChildScrollView(
           child: Center(
