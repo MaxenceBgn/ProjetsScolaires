@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'statistics_total.dart';
 import 'statistics_month.dart';
+import 'statistics_year.dart';
 
 // ignore: must_be_immutable
 class GlobalStatsScreen extends StatelessWidget {
@@ -93,7 +94,13 @@ class GlobalStatsScreen extends StatelessWidget {
                       ),
                       child: GestureDetector(
                         onTap: () {
-                          //Mettre chemin vers stats de l'année
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  YearStatsScreen(users: users),
+                            ),
+                          );
                         },
                         child: const Padding(
                           padding: EdgeInsets.all(30.0),
