@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_pdf/pdf.dart';
+import 'package:fablabconnect/save_file_web.dart';
 
 // ignore: must_be_immutable
 class YearStatsScreen extends StatelessWidget {
@@ -8,6 +10,8 @@ class YearStatsScreen extends StatelessWidget {
   int averageAge = 0;
   int totalConnexionNumber = 0;
   String totalConnexionHours = '';
+  int userNumber = 0;
+  String userNumberString = "";
 
   YearStatsScreen({super.key, required this.users});
 
@@ -93,6 +97,50 @@ class YearStatsScreen extends StatelessWidget {
     return usersYear;
   }
 
+  Future<void> _createPDF() async {
+    //Créé un document PDF
+    var document = PdfDocument();
+
+    //Personnalisation du PDF ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+    PdfPage page = document.pages.add();
+
+    //Titre centré
+    String text = "";
+    PdfTextElement(
+            text: text, font: PdfStandardFont(PdfFontFamily.timesRoman, 14))
+        .draw(
+            page: page,
+            bounds: Rect.fromLTWH(0, 0, page.getClientSize().width / 2,
+                page.getClientSize().height / 3));
+
+    PdfTextElement(
+            text: "Statistiques de l'année en cours",
+            font: PdfStandardFont(PdfFontFamily.timesRoman, 14))
+        .draw(
+            page: page,
+            bounds: Rect.fromLTWH(
+                page.getClientSize().width / 3,
+                0,
+                page.getClientSize().width / 3,
+                page.getClientSize().height / 3));
+
+    PdfTextElement(
+            text: text, font: PdfStandardFont(PdfFontFamily.timesRoman, 14))
+        .draw(
+            page: page,
+            bounds: Rect.fromLTWH(0, 0, page.getClientSize().width / 3,
+                page.getClientSize().height / 3));
+
+    //Sauvegarde
+    List<int> bytes = await document.save();
+
+    document.dispose();
+
+    //Enregistrement + téléchargement du PDF
+    SaveFile.saveAndLaunchFile(bytes, 'output.pdf');
+  }
+
   void initializeVariables() {
     //Initialisation de toutes les variables nécessaires
     users = returnYearUserList();
@@ -101,13 +149,13 @@ class YearStatsScreen extends StatelessWidget {
     totalConnexionNumber = returnTotalConnectionNumber();
     totalConnexionHours =
         formatConnectionTime(calculateNumberOfHoursConnection());
+    userNumber = users.length;
+    userNumberString = userNumber.toString();
   }
 
   @override
   Widget build(BuildContext context) {
     initializeVariables();
-    final int userNumber = users.length;
-    final String userNumberString = userNumber.toString();
 
     return Scaffold(
         appBar: AppBar(
@@ -201,6 +249,12 @@ class YearStatsScreen extends StatelessWidget {
                           Text(
                             totalConnexionHours.toString(),
                             style: const TextStyle(fontSize: 25.0),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              _createPDF();
+                            },
+                            child: const Text('Générer PDF'),
                           ),
                         ],
                       ),
