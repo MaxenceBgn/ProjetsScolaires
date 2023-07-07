@@ -14,6 +14,7 @@ class YearStatsScreen extends StatelessWidget {
   int userNumber = 0;
   String userNumberString = "";
   int year = 0;
+  Map<String, int> towns = {};
 
   int ageMin = 100;
   int ageMax = 0;
@@ -153,8 +154,8 @@ class YearStatsScreen extends StatelessWidget {
 
     PdfPage page = document.pages.add();
 
-// Titre en haut
-    const title = "Statistiques de l'année";
+    // Titre en haut
+    String title = "Statistiques de l'année ${year.toString()}";
     final font = PdfStandardFont(PdfFontFamily.helvetica, 24);
 
     final titleSize = font.measureString(title);
@@ -192,7 +193,7 @@ class YearStatsScreen extends StatelessWidget {
     document.dispose();
 
 // Enregistrement + téléchargement du PDF
-    SaveFile.saveAndLaunchFile(bytes, 'output.pdf');
+    SaveFile.saveAndLaunchFile(bytes, 'statistiques_${year.toString()}.pdf');
   }
 
   void initializeVariables() {
