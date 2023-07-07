@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:fablabconnect/save_file_web.dart';
+import 'utils.dart';
 
 // ignore: must_be_immutable
 class TotalStatsScreen extends StatelessWidget {
@@ -24,101 +24,6 @@ class TotalStatsScreen extends StatelessWidget {
   int averageAgeMale = 0;
 
   TotalStatsScreen({super.key, required this.users});
-
-  String formatDate(String dateString) {
-    //Convertie un DateTime en String exploitable
-    DateTime date = DateTime.parse(dateString);
-    DateFormat formatter = DateFormat('dd/MM/yyyy');
-    return formatter.format(date);
-  }
-
-  String formatConnectionTime(double hours) {
-    //Convertie un DateTime en String exploitable
-    int totalMinutes = (hours * 60).round();
-    int formattedHours = totalMinutes ~/ 60;
-    int formattedMinutes = totalMinutes % 60;
-
-    String hoursText = formattedHours == 1 ? 'heure' : 'heures';
-    String minutesText = formattedMinutes == 1 ? 'minute' : 'minutes';
-
-    return '$formattedHours $hoursText et $formattedMinutes $minutesText.';
-  }
-
-  //Calcule la moyenne d'âge des utilisateurs et initialisation des variables d'âge
-  int calculateAverageAge() {
-    List<int> ages = [];
-    List<int> agesFemale = [];
-    List<int> agesMale = [];
-    for (var i = 0; i < users.length; i++) {
-      ages.add(users[i]['Age']);
-      //Tous les utilisateurs
-      if (users[i]['Age'] < ageMin) {
-        ageMin = users[i]['Age'];
-      }
-      if (users[i]['Age'] > ageMax) {
-        ageMax = users[i]['Age'];
-      }
-      if (users[i]['Sexe'] == 'H') {
-        //Utilisateurs hommes
-        if (users[i]['Age'] < ageMinMale) {
-          ageMinMale = users[i]['Age'];
-        }
-        if (users[i]['Age'] > ageMaxMale) {
-          ageMaxMale = users[i]['Age'];
-        }
-        agesMale.add(users[i]['Age']);
-      } else {
-        //Utilisateurs femmes
-        if (users[i]['Age'] < ageMinFemale) {
-          ageMinFemale = users[i]['Age'];
-        }
-        if (users[i]['Age'] > ageMaxFemale) {
-          ageMaxFemale = users[i]['Age'];
-        }
-        agesFemale.add(users[i]['Age']);
-      }
-    }
-
-    double sum = ages.reduce((value, element) => value + element).toDouble();
-    double average = sum / ages.length;
-
-    sum = agesMale.reduce((value, element) => value + element).toDouble();
-    averageAgeMale = sum ~/ agesMale.length;
-
-    sum = agesFemale.reduce((value, element) => value + element).toDouble();
-    averageAgeFemale = sum ~/ agesFemale.length;
-
-    return average.toInt();
-  }
-
-  int returnPercentageOfMale() {
-    double percent = 0;
-    for (var i = 0; i < users.length; i++) {
-      if (users[i]['Sexe'] == "H") {
-        numberOfMales++;
-      }
-    }
-    percent = (numberOfMales / users.length) * 100;
-    return percent.toInt();
-  }
-
-  int returnTotalConnectionNumber() {
-    num connectionUserNumber = 0;
-    for (var i = 0; i < users.length; i++) {
-      connectionUserNumber += users[i]['NombreTotalConnexions'];
-    }
-    return connectionUserNumber.toInt();
-  }
-
-  double calculateNumberOfHoursConnection() {
-    double connectionHours = 0;
-    for (var i = 0; i < users.length; i++) {
-      for (var i = 0; i < users.length; i++) {
-        connectionHours += users[i]['TempsConnexionDernierMois'];
-      }
-    }
-    return connectionHours;
-  }
 
   //Création du PDF résumant les statistiques de l'année en cours
   Future<void> _createPDF() async {
@@ -173,11 +78,20 @@ class TotalStatsScreen extends StatelessWidget {
 
   void initializeVariables() {
     //Initialisation de toutes les variables nécessaires
-    averageAge = calculateAverageAge();
-    percentageMale = returnPercentageOfMale();
-    totalConnexionNumber = returnTotalConnectionNumber();
+    averageAge = calculateAverageAge(
+        users,
+        ageMin,
+        ageMax,
+        ageMinMale,
+        ageMaxMale,
+        ageMinFemale,
+        ageMaxFemale,
+        averageAgeMale,
+        averageAgeFemale);
+    percentageMale = returnPercentageOfMale(users, numberOfMales);
+    totalConnexionNumber = returnTotalConnectionNumber(users);
     totalConnexionHours =
-        formatConnectionTime(calculateNumberOfHoursConnection());
+        formatConnectionTime(calculateNumberOfHoursConnection(users));
     userNumber = users.length;
 
     //Récupération de l'année en cours

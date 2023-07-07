@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:fablabconnect/save_file_web.dart';
+import 'utils.dart';
 
 // ignore: must_be_immutable
 class MonthStatsScreen extends StatelessWidget {
@@ -26,102 +26,6 @@ class MonthStatsScreen extends StatelessWidget {
 
   MonthStatsScreen({super.key, required this.users});
 
-  String formatDate(String dateString) {
-    //Convertie un DateTime en String exploitable
-    DateTime date = DateTime.parse(dateString);
-    DateFormat formatter = DateFormat('dd/MM/yyyy');
-    return formatter.format(date);
-  }
-
-  String formatConnectionTime(double hours) {
-    //Convertie un DateTime en String exploitable
-    int totalMinutes = (hours * 60).round();
-    int formattedHours = totalMinutes ~/ 60;
-    int formattedMinutes = totalMinutes % 60;
-
-    String hoursText = formattedHours == 1 ? 'heure' : 'heures';
-    String minutesText = formattedMinutes == 1 ? 'minute' : 'minutes';
-
-    return '$formattedHours $hoursText et $formattedMinutes $minutesText.';
-  }
-
-  //Calcule la moyenne d'âge des utilisateurs et initialisation des variables d'âge
-  int calculateAverageAge() {
-    List<int> ages = [];
-    List<int> agesFemale = [];
-    List<int> agesMale = [];
-    for (var i = 0; i < users.length; i++) {
-      ages.add(users[i]['Age']);
-      //Tous les utilisateurs
-      if (users[i]['Age'] < ageMin) {
-        ageMin = users[i]['Age'];
-      }
-      if (users[i]['Age'] > ageMax) {
-        ageMax = users[i]['Age'];
-      }
-      if (users[i]['Sexe'] == 'H') {
-        //Utilisateurs hommes
-        if (users[i]['Age'] < ageMinMale) {
-          ageMinMale = users[i]['Age'];
-        }
-        if (users[i]['Age'] > ageMaxMale) {
-          ageMaxMale = users[i]['Age'];
-        }
-        agesMale.add(users[i]['Age']);
-      } else {
-        //Utilisateurs femmes
-        if (users[i]['Age'] < ageMinFemale) {
-          ageMinFemale = users[i]['Age'];
-        }
-        if (users[i]['Age'] > ageMaxFemale) {
-          ageMaxFemale = users[i]['Age'];
-        }
-        agesFemale.add(users[i]['Age']);
-      }
-    }
-
-    double sum = ages.reduce((value, element) => value + element).toDouble();
-    double average = sum / ages.length;
-
-    sum = agesMale.reduce((value, element) => value + element).toDouble();
-    averageAgeMale = sum ~/ agesMale.length;
-
-    sum = agesFemale.reduce((value, element) => value + element).toDouble();
-    averageAgeFemale = sum ~/ agesFemale.length;
-
-    return average.toInt();
-  }
-
-  //Calcule le pourcentage d'hommes
-  int returnPercentageOfMale() {
-    double percent = 0;
-    for (var i = 0; i < users.length; i++) {
-      if (users[i]['Sexe'] == "H") {
-        numberOfMales++;
-      }
-    }
-    percent = (numberOfMales / users.length) * 100;
-    return percent.toInt();
-  }
-
-  int returnTotalConnectionNumber() {
-    num connectionUserNumber = 0;
-    for (var i = 0; i < users.length; i++) {
-      connectionUserNumber += users[i]['NombreTotalConnexions'];
-    }
-    return connectionUserNumber.toInt();
-  }
-
-  double calculateNumberOfHoursConnection() {
-    double connectionHours = 0;
-    for (var i = 0; i < users.length; i++) {
-      for (var i = 0; i < users.length; i++) {
-        connectionHours += users[i]['TempsConnexionDernierMois'];
-      }
-    }
-    return connectionHours;
-  }
-
   //Retourne la liste des utilisateurs avec le filtre (ici, cela ne concerne que les utilisateurs dont la dernière connexion date de l'année en cours)
   List<dynamic> returnMonthUserList() {
     List<dynamic> usersMonth = [];
@@ -139,51 +43,6 @@ class MonthStatsScreen extends StatelessWidget {
       }
     }
     return usersMonth;
-  }
-
-  String returnMonthString() {
-    String month = "";
-    switch (monthInt) {
-      case 1:
-        month = "Janvier";
-        break;
-      case 2:
-        month = "Janvier";
-        break;
-      case 3:
-        month = "Janvier";
-        break;
-      case 4:
-        month = "Janvier";
-        break;
-      case 5:
-        month = "Janvier";
-        break;
-      case 6:
-        month = "Janvier";
-        break;
-      case 7:
-        month = "Janvier";
-        break;
-      case 8:
-        month = "Janvier";
-        break;
-      case 9:
-        month = "Janvier";
-        break;
-      case 10:
-        month = "Janvier";
-        break;
-      case 11:
-        month = "Janvier";
-        break;
-      case 12:
-        month = "Janvier";
-        break;
-      default:
-        month = "Erreur : aucun mois n'a pu être défini.";
-    }
-    return month;
   }
 
   //Création du PDF résumant les statistiques de l'année en cours
@@ -216,7 +75,7 @@ class MonthStatsScreen extends StatelessWidget {
 
     PdfTextElement textElement = PdfTextElement(
       text:
-          "Répartition des utilisateurs : \nNombre d'utilisateurs s'étant connectés au moins une fois en ${year.toString()} : ${userNumber.toString()}.\n$numberOfMales (${percentageMale.toString()}%) sont des hommes, et ${(userNumber - numberOfMales).toString()} (${(100 - percentageMale).toString()}%) sont des femmes.\n\n  \nÂge des utilisateurs : \nMoyenne d'âge des utilisateurs : ${averageAge.toString()} ans (le plus jeune a $ageMin et le plus âgé a $ageMax). \nHommes : la moyenne d'âge est de ${averageAgeMale.toString()}, le plus jeune a $ageMinMale ans et le plus ancien a $ageMaxMale \nFemmes : la moyenne d'âge est de ${averageAgeFemale.toString()}, le plus jeune a $ageMinFemale ans et le plus ancien a $ageMaxFemale",
+          "Répartition des utilisateurs : \nNombre d'utilisateurs s'étant connectés au moins une fois en $monthString ${year.toString()} : ${userNumber.toString()}.\n$numberOfMales (${percentageMale.toString()}%) sont des hommes, et ${(userNumber - numberOfMales).toString()} (${(100 - percentageMale).toString()}%) sont des femmes.\n\n  \nÂge des utilisateurs : \nMoyenne d'âge des utilisateurs : ${averageAge.toString()} ans (le plus jeune a $ageMin et le plus âgé a $ageMax). \nHommes : la moyenne d'âge est de ${averageAgeMale.toString()}, le plus jeune a $ageMinMale ans et le plus ancien a $ageMaxMale \nFemmes : la moyenne d'âge est de ${averageAgeFemale.toString()}, le plus jeune a $ageMinFemale ans et le plus ancien a $ageMaxFemale",
       font: PdfStandardFont(PdfFontFamily.helvetica, 12),
     );
     textElement.draw(
@@ -241,16 +100,25 @@ class MonthStatsScreen extends StatelessWidget {
   void initializeVariables() {
     //Initialisation de toutes les variables nécessaires
     users = returnMonthUserList();
-    averageAge = calculateAverageAge();
-    percentageMale = returnPercentageOfMale();
-    totalConnexionNumber = returnTotalConnectionNumber();
+    averageAge = calculateAverageAge(
+        users,
+        ageMin,
+        ageMax,
+        ageMinMale,
+        ageMaxMale,
+        ageMinFemale,
+        ageMaxFemale,
+        averageAgeMale,
+        averageAgeFemale);
+    percentageMale = returnPercentageOfMale(users, numberOfMales);
+    totalConnexionNumber = returnTotalConnectionNumber(users);
     totalConnexionHours =
-        formatConnectionTime(calculateNumberOfHoursConnection());
+        formatConnectionTime(calculateNumberOfHoursConnection(users));
     DateTime now = DateTime.now();
     year = now.year;
     userNumber = users.length;
     monthInt = now.month;
-    monthString = returnMonthString();
+    monthString = returnMonthString(monthInt);
   }
 
   @override
