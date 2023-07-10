@@ -100,139 +100,152 @@ class MonthStatsScreen extends StatelessWidget {
   void initializeVariables() {
     //Initialisation de toutes les variables nécessaires
     users = returnMonthUserList();
-    averageAge = calculateAverageAge(
-        users,
-        ageMin,
-        ageMax,
-        ageMinMale,
-        ageMaxMale,
-        ageMinFemale,
-        ageMaxFemale,
-        averageAgeMale,
-        averageAgeFemale);
-    percentageMale = returnPercentageOfMale(users, numberOfMales);
-    totalConnexionNumber = returnTotalConnectionNumber(users);
-    totalConnexionHours =
-        formatConnectionTime(calculateNumberOfHoursConnection(users));
-    DateTime now = DateTime.now();
-    year = now.year;
-    userNumber = users.length;
-    monthInt = now.month;
-    monthString = returnMonthString(monthInt);
+    if (users.isNotEmpty) {
+      averageAge = calculateAverageAge(
+          users,
+          ageMin,
+          ageMax,
+          ageMinMale,
+          ageMaxMale,
+          ageMinFemale,
+          ageMaxFemale,
+          averageAgeMale,
+          averageAgeFemale);
+      percentageMale = returnPercentageOfMale(users, numberOfMales);
+      totalConnexionNumber = returnTotalConnectionNumber(users);
+      totalConnexionHours =
+          formatConnectionTime(calculateNumberOfHoursConnection(users));
+      DateTime now = DateTime.now();
+      year = now.year;
+      userNumber = users.length;
+      monthInt = now.month;
+      monthString = returnMonthString(monthInt);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     initializeVariables();
-    final String userNumberString = userNumber.toString();
-
-    return Scaffold(
+    if (users.isEmpty) {
+      return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 0, 183, 6),
           title: const Text('Statistiques des utilisateurs du mois'),
         ),
-        body: SingleChildScrollView(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(50.0),
-              child: Column(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    margin: const EdgeInsets.only(bottom: 40.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.grey,
-                        width: 1.0,
+        body: const Center(
+          child: Text('Aucun utilisateur'),
+        ),
+      );
+    } else {
+      return Scaffold(
+          appBar: AppBar(
+            backgroundColor: const Color.fromARGB(255, 0, 183, 6),
+            title: const Text('Statistiques des utilisateurs du mois'),
+          ),
+          body: SingleChildScrollView(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(50.0),
+                child: Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      margin: const EdgeInsets.only(bottom: 40.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(30.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(Icons.supervised_user_circle, size: 100.0),
-                          const SizedBox(height: 10.0),
-                          const Text(
-                            "Nombre d'utilisateurs :",
-                            style: TextStyle(
-                                fontSize: 25.0, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            userNumberString,
-                            style: const TextStyle(fontSize: 25.0),
-                          ),
-                          const SizedBox(height: 10.0),
-                          const Text(
-                            "Âge moyen des utilisateurs :",
-                            style: TextStyle(
-                                fontSize: 25.0, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            averageAge.toString(),
-                            style: const TextStyle(fontSize: 25.0),
-                          ),
-                          const SizedBox(height: 10.0),
-                          const Text(
-                            "Pourcentage d'hommes :",
-                            style: TextStyle(
-                                fontSize: 25.0, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            percentageMale.toString(),
-                            style: const TextStyle(fontSize: 25.0),
-                          ),
-                          const SizedBox(height: 10.0),
-                          const Text(
-                            "Pourcentage de femmes :",
-                            style: TextStyle(
-                                fontSize: 25.0, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            (100 - percentageMale).toString(),
-                            style: const TextStyle(fontSize: 25.0),
-                          ),
-                          const SizedBox(height: 10.0),
-                          const Text(
-                            "Nombre total de connexions au WIFI (1 connection = 1 demie journée) :",
-                            style: TextStyle(
-                                fontSize: 25.0, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            totalConnexionNumber.toString(),
-                            style: const TextStyle(fontSize: 25.0),
-                          ),
-                          const SizedBox(height: 10.0),
-                          const Text(
-                            "Nombre total d'heures de connexions au WIFI :",
-                            style: TextStyle(
-                                fontSize: 25.0, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            totalConnexionHours.toString(),
-                            style: const TextStyle(fontSize: 25.0),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              _createPDF();
-                            },
-                            child: const Text('Générer PDF'),
-                          ),
-                        ],
+                      child: Padding(
+                        padding: const EdgeInsets.all(30.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.supervised_user_circle,
+                                size: 100.0),
+                            const SizedBox(height: 10.0),
+                            const Text(
+                              "Nombre d'utilisateurs :",
+                              style: TextStyle(
+                                  fontSize: 25.0, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              userNumber.toString(),
+                              style: const TextStyle(fontSize: 25.0),
+                            ),
+                            const SizedBox(height: 10.0),
+                            const Text(
+                              "Âge moyen des utilisateurs :",
+                              style: TextStyle(
+                                  fontSize: 25.0, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              averageAge.toString(),
+                              style: const TextStyle(fontSize: 25.0),
+                            ),
+                            const SizedBox(height: 10.0),
+                            const Text(
+                              "Pourcentage d'hommes :",
+                              style: TextStyle(
+                                  fontSize: 25.0, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              percentageMale.toString(),
+                              style: const TextStyle(fontSize: 25.0),
+                            ),
+                            const SizedBox(height: 10.0),
+                            const Text(
+                              "Pourcentage de femmes :",
+                              style: TextStyle(
+                                  fontSize: 25.0, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              (100 - percentageMale).toString(),
+                              style: const TextStyle(fontSize: 25.0),
+                            ),
+                            const SizedBox(height: 10.0),
+                            const Text(
+                              "Nombre total de connexions au WIFI (1 connection = 1 demie journée) :",
+                              style: TextStyle(
+                                  fontSize: 25.0, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              totalConnexionNumber.toString(),
+                              style: const TextStyle(fontSize: 25.0),
+                            ),
+                            const SizedBox(height: 10.0),
+                            const Text(
+                              "Nombre total d'heures de connexions au WIFI :",
+                              style: TextStyle(
+                                  fontSize: 25.0, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              totalConnexionHours.toString(),
+                              style: const TextStyle(fontSize: 25.0),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                _createPDF();
+                              },
+                              child: const Text('Générer PDF'),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ));
+          ));
+    }
   }
 }

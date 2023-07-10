@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'statistics_total.dart';
 import 'statistics_month.dart';
 import 'statistics_year.dart';
@@ -9,23 +8,6 @@ class GlobalStatsScreen extends StatelessWidget {
   final List<dynamic> users;
 
   const GlobalStatsScreen({super.key, required this.users});
-
-  String formatDate(String dateString) {
-    DateTime date = DateTime.parse(dateString);
-    DateFormat formatter = DateFormat('dd/MM/yyyy');
-    return formatter.format(date);
-  }
-
-  String formatConnectionTime(double hours) {
-    int totalMinutes = (hours * 60).round();
-    int formattedHours = totalMinutes ~/ 60;
-    int formattedMinutes = totalMinutes % 60;
-
-    String hoursText = formattedHours == 1 ? 'heure' : 'heures';
-    String minutesText = formattedMinutes == 1 ? 'minute' : 'minutes';
-
-    return '$formattedHours $hoursText et $formattedMinutes $minutesText.';
-  }
 
   @override
   Widget build(BuildContext context) {

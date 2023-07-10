@@ -63,14 +63,20 @@ int calculateAverageAge(
     }
   }
 
-  double sum = ages.reduce((value, element) => value + element).toDouble();
-  double average = sum / ages.length;
+  double sum = ages.isNotEmpty
+      ? ages.reduce((value, element) => value + element).toDouble()
+      : 0.0;
+  double average = ages.isNotEmpty ? sum / ages.length : 0.0;
 
-  sum = agesMale.reduce((value, element) => value + element).toDouble();
-  averageAgeMale = sum ~/ agesMale.length;
+  sum = agesMale.isNotEmpty
+      ? agesMale.reduce((value, element) => value + element).toDouble()
+      : 0.0;
+  averageAgeMale = agesMale.isNotEmpty ? sum ~/ agesMale.length : 0;
 
-  sum = agesFemale.reduce((value, element) => value + element).toDouble();
-  averageAgeFemale = sum ~/ agesFemale.length;
+  sum = agesFemale.isNotEmpty
+      ? agesFemale.reduce((value, element) => value + element).toDouble()
+      : 0.0;
+  averageAgeFemale = agesFemale.isNotEmpty ? sum ~/ agesFemale.length : 0;
 
   return average.toInt();
 }
@@ -82,37 +88,37 @@ String returnMonthString(int monthInt) {
       month = "Janvier";
       break;
     case 2:
-      month = "Janvier";
+      month = "Février";
       break;
     case 3:
-      month = "Janvier";
+      month = "Mars";
       break;
     case 4:
-      month = "Janvier";
+      month = "Avril";
       break;
     case 5:
-      month = "Janvier";
+      month = "Mai";
       break;
     case 6:
-      month = "Janvier";
+      month = "Juin";
       break;
     case 7:
-      month = "Janvier";
+      month = "Juillet";
       break;
     case 8:
-      month = "Janvier";
+      month = "Août";
       break;
     case 9:
-      month = "Janvier";
+      month = "Septembre";
       break;
     case 10:
-      month = "Janvier";
+      month = "Octobre";
       break;
     case 11:
-      month = "Janvier";
+      month = "Novembre";
       break;
     case 12:
-      month = "Janvier";
+      month = "Décembre";
       break;
     default:
       month = "Erreur : aucun mois n'a pu être défini.";
