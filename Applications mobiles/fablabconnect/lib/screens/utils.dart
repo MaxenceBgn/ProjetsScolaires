@@ -153,14 +153,6 @@ double returnPercentageOfMales(List<dynamic> users, numberOfMales) {
   return (numberOfMales / users.length) * 100;
 }
 
-int returnTotalConnectionNumber(List<dynamic> users) {
-  num connectionUserNumber = 0;
-  for (var i = 0; i < users.length; i++) {
-    connectionUserNumber += users[i]['NombreTotalConnexions'];
-  }
-  return connectionUserNumber.toInt();
-}
-
 double calculateNumberOfHoursConnection(List<dynamic> users) {
   double connectionHours = 0;
   for (var i = 0; i < users.length; i++) {
@@ -179,4 +171,110 @@ int calculateNumberOfRegular(List<dynamic> users) {
     }
   }
   return numberOfRegular;
+}
+
+int returnNumberOfConnexions(List<dynamic> users) {
+  num numberOfConnexions = 0;
+  for (var i = 0; i < users.length; i++) {
+    numberOfConnexions += users[i]['NombreTotalConnexions'];
+  }
+  return numberOfConnexions.toInt();
+}
+
+/////////////////////////////////////////Statistiques de connexion
+
+//Moyennes de connexion totales
+int returnAverageConnexions(List<dynamic> users) {
+  num numberOfConnexions = 0;
+  for (var i = 0; i < users.length; i++) {
+    numberOfConnexions += users[i]['NombreTotalConnexions'];
+  }
+  numberOfConnexions = numberOfConnexions / users.length;
+  return numberOfConnexions.toInt();
+}
+
+int returnAverageConnexionsOfRegulars(List<dynamic> users) {
+  num numberOfConnexions = 0;
+  for (var i = 0; i < users.length; i++) {
+    if (users[i]["Regulier"] != 0) {
+      numberOfConnexions += users[i]['NombreTotalConnexions'];
+    }
+  }
+  numberOfConnexions = numberOfConnexions / users.length;
+  return numberOfConnexions.toInt();
+}
+
+int returnAverageConnexionsOfPonctuals(List<dynamic> users) {
+  num numberOfConnexions = 0;
+  for (var i = 0; i < users.length; i++) {
+    if (users[i]["Regulier"] == 0) {
+      numberOfConnexions += users[i]['NombreTotalConnexions'];
+    }
+  }
+  numberOfConnexions = numberOfConnexions / users.length;
+  return numberOfConnexions.toInt();
+}
+
+//Moyennes de connexions annuelles
+int returnAverageConnexionsYear(List<dynamic> users) {
+  num numberOfConnexions = 0;
+  for (var i = 0; i < users.length; i++) {
+    numberOfConnexions += users[i]['NombreConnexionsDerniereAnnee'];
+  }
+  numberOfConnexions = numberOfConnexions / users.length;
+  return numberOfConnexions.toInt();
+}
+
+int returnAverageConnexionsOfRegularsYear(List<dynamic> users) {
+  num numberOfConnexions = 0;
+  for (var i = 0; i < users.length; i++) {
+    if (users[i]["Regulier"] != 0) {
+      numberOfConnexions += users[i]['NombreConnexionsDerniereAnnee'];
+    }
+  }
+  numberOfConnexions = numberOfConnexions / users.length;
+  return numberOfConnexions.toInt();
+}
+
+int returnAverageConnexionsOfPonctualsYear(List<dynamic> users) {
+  num numberOfConnexions = 0;
+  for (var i = 0; i < users.length; i++) {
+    if (users[i]["Regulier"] == 0) {
+      numberOfConnexions += users[i]['NombreConnexionsDerniereAnnee'];
+    }
+  }
+  numberOfConnexions = numberOfConnexions / users.length;
+  return numberOfConnexions.toInt();
+}
+
+//Moyennes de connexions mensuelles
+int returnAverageConnexionsMonth(List<dynamic> users) {
+  num numberOfConnexions = 0;
+  for (var i = 0; i < users.length; i++) {
+    numberOfConnexions += users[i]['NombreConnexionsDernierMois'];
+  }
+  numberOfConnexions = numberOfConnexions / users.length;
+  return numberOfConnexions.toInt();
+}
+
+int returnAverageConnexionsOfRegularsMonth(List<dynamic> users) {
+  num numberOfConnexions = 0;
+  for (var i = 0; i < users.length; i++) {
+    if (users[i]["Regulier"] != 0) {
+      numberOfConnexions += users[i]['NombreConnexionsDernierMois'];
+    }
+  }
+  numberOfConnexions = numberOfConnexions / users.length;
+  return numberOfConnexions.toInt();
+}
+
+int returnAverageConnexionsOfPonctualsMonth(List<dynamic> users) {
+  num numberOfConnexions = 0;
+  for (var i = 0; i < users.length; i++) {
+    if (users[i]["Regulier"] == 0) {
+      numberOfConnexions += users[i]['NombreConnexionsDernierMois'];
+    }
+  }
+  numberOfConnexions = numberOfConnexions / users.length;
+  return numberOfConnexions.toInt();
 }
