@@ -7,13 +7,14 @@ import 'utils.dart';
 class YearStatsScreen extends StatelessWidget {
   List<dynamic> users;
   int numberOfMales = 0;
-  int percentageMale = 0;
+  double percentageMale = 0;
   int averageAge = 0;
   int numberOfRegular = 0;
   int totalConnexionNumber = 0;
   String totalConnexionHours = '';
   int year = 0;
   Map<String, int> towns = {};
+  List<int> numbersForAges = [];
 
   int ageMin = 100;
   int ageMax = 0;
@@ -75,10 +76,22 @@ class YearStatsScreen extends StatelessWidget {
 // Corps du PDF
     double textElementX = 0;
     final textElementY = titleSize.height + 10;
+    String pdfAgeText = "";
+
+    //Définition des textes de PDF
+    if (averageAgeFemale > 0 && averageAgeMale > 0) {
+      pdfAgeText =
+          "Répartition des utilisateurs : \nNombre d'utilisateurs s'étant connectés au moins une fois en ${year.toString()} : ${users.length.toString()}.\n$numberOfMales (${percentageMale.toString()}%) sont des hommes, et ${(users.length - numberOfMales).toString()} (${(100 - percentageMale).toString()}%) sont des femmes.\n\n  \nÂge des utilisateurs : \nMoyenne d'âge des utilisateurs : ${averageAge.toString()} ans, le plus jeune a $ageMin ans et le plus âgé a $ageMax ans. \nHommes : la moyenne d'âge est de ${averageAgeMale.toString()}, le plus jeune a $ageMinMale ans et le plus ancien a $ageMaxMale \nFemmes : la moyenne d'âge est de ${averageAgeFemale.toString()}, la plus jeune a $ageMinFemale ans et la plus ancienne a $ageMaxFemale ans";
+    } else if (averageAgeMale == 0) {
+      pdfAgeText =
+          "Répartition des utilisateurs : \nNombre d'utilisateurs s'étant connectés au moins une fois en ${year.toString()} : ${users.length.toString()}.\n$numberOfMales (${percentageMale.toString()}%) sont des hommes, et ${(users.length - numberOfMales).toString()} (${(100 - percentageMale).toString()}%) sont des femmes.\n\n  \nÂge des utilisateurs : \nMoyenne d'âge des utilisateurs : ${averageAge.toString()} ans, le plus jeune a $ageMin ans et le plus âgé a $ageMax ans. \Femmes : la moyenne d'âge est de ${averageAgeFemale.toString()}, la plus jeune a $ageMinFemale ans et la plus ancienne a $ageMaxFemale ans.";
+    } else {
+      pdfAgeText =
+          "Répartition des utilisateurs : \nNombre d'utilisateurs s'étant connectés au moins une fois en ${year.toString()} : ${users.length.toString()}.\n$numberOfMales (${percentageMale.toString()}%) sont des hommes, et ${(users.length - numberOfMales).toString()} (${(100 - percentageMale).toString()}%) sont des femmes.\n\n  \nÂge des utilisateurs : \nMoyenne d'âge des utilisateurs : ${averageAge.toString()} ans, le plus jeune a $ageMin ans et le plus âgé a $ageMax ans. \nHommes : la moyenne d'âge est de ${averageAgeMale.toString()}, le plus jeune a $ageMinMale ans et le plus ancien a $ageMaxMale ans.";
+    }
 
     PdfTextElement textElement = PdfTextElement(
-      text:
-          "Répartition des utilisateurs : \nNombre d'utilisateurs s'étant connectés au moins une fois en ${year.toString()} : ${users.length.toString()}.\n$numberOfMales (${percentageMale.toString()}%) sont des hommes, et ${(users.length - numberOfMales).toString()} (${(100 - percentageMale).toString()}%) sont des femmes.\n\n  \nÂge des utilisateurs : \nMoyenne d'âge des utilisateurs : ${averageAge.toString()} ans (le plus jeune a $ageMin et le plus âgé a $ageMax). \nHommes : la moyenne d'âge est de ${averageAgeMale.toString()}, le plus jeune a $ageMinMale ans et le plus ancien a $ageMaxMale \nFemmes : la moyenne d'âge est de ${averageAgeFemale.toString()}, le plus jeune a $ageMinFemale ans et le plus ancien a $ageMaxFemale",
+      text: pdfAgeText,
       font: PdfStandardFont(PdfFontFamily.helvetica, 12),
     );
     textElement.draw(
@@ -103,7 +116,7 @@ class YearStatsScreen extends StatelessWidget {
     //Initialisation de toutes les variables nécessaires
     users = returnYearUserList();
     if (users.isNotEmpty) {
-      averageAge = calculateAverageAge(
+      numbersForAges = calculateAverageAge(
           users,
           ageMin,
           ageMax,
@@ -113,13 +126,26 @@ class YearStatsScreen extends StatelessWidget {
           ageMaxFemale,
           averageAgeMale,
           averageAgeFemale);
-      percentageMale = returnPercentageOfMale(users, numberOfMales);
+
+      //Initialisation des âges
+      ageMin = numbersForAges[0];
+      ageMax = numbersForAges[1];
+      ageMinMale = numbersForAges[2];
+      ageMaxMale = numbersForAges[3];
+      ageMinFemale = numbersForAges[4];
+      ageMaxFemale = numbersForAges[5];
+      averageAge = numbersForAges[6];
+      averageAgeMale = numbersForAges[7];
+      averageAgeFemale = numbersForAges[8];
+
+      numberOfMales = returnNumberOfMale(users, numberOfMales);
       totalConnexionNumber = returnTotalConnectionNumber(users);
       totalConnexionHours =
           formatConnectionTime(calculateNumberOfHoursConnection(users));
       DateTime now = DateTime.now();
       year = now.year;
       numberOfRegular = calculateNumberOfRegular(users);
+      percentageMale = returnPercentageOfMales(users, numberOfMales);
     } else {
       print("La liste est vide....");
     }

@@ -19,8 +19,8 @@ String formatConnectionTime(double hours) {
   return '$formattedHours $hoursText et $formattedMinutes $minutesText.';
 }
 
-//Calcule la moyenne d'âge des utilisateurs et initialisation des variables d'âge
-int calculateAverageAge(
+//Retourne la liste de toutes les valeurs d'âge
+List<int> calculateAverageAge(
     List<dynamic> users,
     int ageMin,
     int ageMax,
@@ -33,6 +33,7 @@ int calculateAverageAge(
   List<int> ages = [];
   List<int> agesFemale = [];
   List<int> agesMale = [];
+
   for (var i = 0; i < users.length; i++) {
     ages.add(users[i]['Age']);
     //Tous les utilisateurs
@@ -78,7 +79,18 @@ int calculateAverageAge(
       : 0.0;
   averageAgeFemale = agesFemale.isNotEmpty ? sum ~/ agesFemale.length : 0;
 
-  return average.toInt();
+  List<int> numbersToReturn = [
+    ageMin,
+    ageMax,
+    ageMinMale,
+    ageMaxMale,
+    ageMinFemale,
+    ageMaxFemale,
+    average.toInt(),
+    averageAgeMale.toInt(),
+    averageAgeFemale.toInt()
+  ];
+  return numbersToReturn;
 }
 
 String returnMonthString(int monthInt) {
@@ -126,16 +138,19 @@ String returnMonthString(int monthInt) {
   return month;
 }
 
-//Calcule le pourcentage d'hommes
-int returnPercentageOfMale(List<dynamic> users, int numberOfMales) {
-  double percent = 0;
+//Calcule le nombre d'hommes
+int returnNumberOfMale(List<dynamic> users, int numberOfMales) {
   for (var i = 0; i < users.length; i++) {
     if (users[i]['Sexe'] == "H") {
       numberOfMales++;
     }
   }
-  percent = (numberOfMales / users.length) * 100;
-  return percent.toInt();
+  return numberOfMales;
+}
+
+//Calcule le pourcentage d'hommes
+double returnPercentageOfMales(List<dynamic> users, numberOfMales) {
+  return (numberOfMales / users.length) * 100;
 }
 
 int returnTotalConnectionNumber(List<dynamic> users) {
