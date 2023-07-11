@@ -9,6 +9,7 @@ class YearStatsScreen extends StatelessWidget {
   int numberOfMales = 0;
   int percentageMale = 0;
   int averageAge = 0;
+  int numberOfRegular = 0;
   int totalConnexionNumber = 0;
   String totalConnexionHours = '';
   int year = 0;
@@ -118,6 +119,7 @@ class YearStatsScreen extends StatelessWidget {
           formatConnectionTime(calculateNumberOfHoursConnection(users));
       DateTime now = DateTime.now();
       year = now.year;
+      numberOfRegular = calculateNumberOfRegular(users);
     } else {
       print("La liste est vide....");
     }
@@ -173,6 +175,17 @@ class YearStatsScreen extends StatelessWidget {
                             ),
                             Text(
                               users.length.toString(),
+                              style: const TextStyle(fontSize: 25.0),
+                            ),
+                            const SizedBox(height: 10.0),
+                            const Text(
+                              "Nombre d'utilisateurs réguliers :",
+                              style: TextStyle(
+                                  fontSize: 25.0, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              "${numberOfRegular.toString()} (${(numberOfRegular / users.length) * 100} %)",
                               style: const TextStyle(fontSize: 25.0),
                             ),
                             const SizedBox(height: 10.0),

@@ -13,6 +13,7 @@ class TotalStatsScreen extends StatelessWidget {
   int year = 0;
   int userNumber = 0;
   int numberOfMales = 0;
+  int numberOfRegular = 0;
 
   int ageMin = 100;
   int ageMax = 0;
@@ -94,6 +95,7 @@ class TotalStatsScreen extends StatelessWidget {
       totalConnexionHours =
           formatConnectionTime(calculateNumberOfHoursConnection(users));
       userNumber = users.length;
+      numberOfRegular = calculateNumberOfRegular(users);
 
       //Récupération de l'année en cours
       DateTime now = DateTime.now();
@@ -152,6 +154,17 @@ class TotalStatsScreen extends StatelessWidget {
                             ),
                             Text(
                               userNumber.toString(),
+                              style: const TextStyle(fontSize: 25.0),
+                            ),
+                            const SizedBox(height: 10.0),
+                            const Text(
+                              "Nombre d'utilisateurs réguliers :",
+                              style: TextStyle(
+                                  fontSize: 25.0, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              "${numberOfRegular.toString()} (${(numberOfRegular / userNumber) * 100} %)",
                               style: const TextStyle(fontSize: 25.0),
                             ),
                             const SizedBox(height: 10.0),

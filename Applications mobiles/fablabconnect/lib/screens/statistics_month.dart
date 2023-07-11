@@ -23,6 +23,7 @@ class MonthStatsScreen extends StatelessWidget {
   int ageMaxMale = 0;
   int averageAgeFemale = 0;
   int averageAgeMale = 0;
+  int numberOfRegular = 0;
 
   MonthStatsScreen({super.key, required this.users});
 
@@ -120,6 +121,7 @@ class MonthStatsScreen extends StatelessWidget {
       userNumber = users.length;
       monthInt = now.month;
       monthString = returnMonthString(monthInt);
+      numberOfRegular = calculateNumberOfRegular(users);
     }
   }
 
@@ -174,6 +176,17 @@ class MonthStatsScreen extends StatelessWidget {
                             ),
                             Text(
                               userNumber.toString(),
+                              style: const TextStyle(fontSize: 25.0),
+                            ),
+                            const SizedBox(height: 10.0),
+                            const Text(
+                              "Nombre d'utilisateurs réguliers :",
+                              style: TextStyle(
+                                  fontSize: 25.0, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              "${numberOfRegular.toString()} (${(numberOfRegular / userNumber) * 100} %)",
                               style: const TextStyle(fontSize: 25.0),
                             ),
                             const SizedBox(height: 10.0),

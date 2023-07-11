@@ -155,3 +155,13 @@ double calculateNumberOfHoursConnection(List<dynamic> users) {
   }
   return connectionHours;
 }
+
+int calculateNumberOfRegular(List<dynamic> users) {
+  int numberOfRegular = 0;
+  for (var i = 0; i < users.length; i++) {
+    if (users[i]['Regulier'] != 0) {
+      numberOfRegular++;
+    }
+  }
+  return numberOfRegular;
+}
