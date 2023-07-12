@@ -11,9 +11,9 @@ class MonthStatsScreen extends StatelessWidget {
   int averageAge = 0;
   List<int> numbersForAges = [];
   int totalConnexionNumber = 0;
-  int AverageConnexionNumber = 0;
-  int AverageConnexionsOfRegulars = 0;
-  int AverageConnexionsOfPonctuals = 0;
+  int averageConnexionNumber = 0;
+  int averageConnexionsOfRegulars = 0;
+  int averageConnexionsOfPonctuals = 0;
   String totalConnexionHours = '';
   int year = 0;
   int monthInt = 0;
@@ -83,13 +83,13 @@ class MonthStatsScreen extends StatelessWidget {
     //Définition des textes de PDF
     if (averageAgeFemale > 0 && averageAgeMale > 0) {
       pdfAgeText =
-          "Répartition des utilisateurs : \nNombre d'utilisateurs s'étant connectés au moins une fois en $monthString ${year.toString()} : ${userNumber.toString()}.\n$numberOfMales (${percentageMale.toString()}%) sont des hommes, et ${(userNumber - numberOfMales).toString()} (${(100 - percentageMale).toString()}%) sont des femmes.\n\n  \nÂge des utilisateurs : \nMoyenne d'âge des utilisateurs : ${averageAge.toString()} ans, le plus jeune a $ageMin ans et le plus âgé a $ageMax ans. \nHommes : la moyenne d'âge est de ${averageAgeMale.toString()}, le plus jeune a $ageMinMale ans et le plus ancien a $ageMaxMale \nFemmes : la moyenne d'âge est de ${averageAgeFemale.toString()} ans, la plus jeune a $ageMinFemale ans et la plus ancienne a $ageMaxFemale ans. \n\nNombre d'utilisateurs réguliers : $numberOfRegular.\nNombre d'utilisateurs ponctuels : $numberOfPonctual. \n\nNombre de connexions totales : $totalConnexionNumber.\nMoyenne du nombre de connexions des utilisateurs : $AverageConnexionNumber. \nMoyenne du nombre de connexion par utilisateur régulier: $AverageConnexionsOfRegulars. \nMoyenne du nombre de connexions par utilisateur ponctuel : $AverageConnexionsOfPonctuals.";
+          "Répartition des utilisateurs : \nNombre d'utilisateurs s'étant connectés au moins une fois en $monthString ${year.toString()} : ${userNumber.toString()}.\n$numberOfMales (${percentageMale.toString()}%) sont des hommes, et ${(userNumber - numberOfMales).toString()} (${(100 - percentageMale).toString()}%) sont des femmes.\n\n  \nÂge des utilisateurs : \nMoyenne d'âge des utilisateurs : ${averageAge.toString()} ans, le plus jeune a $ageMin ans et le plus âgé a $ageMax ans. \nHommes : la moyenne d'âge est de ${averageAgeMale.toString()}, le plus jeune a $ageMinMale ans et le plus ancien a $ageMaxMale \nFemmes : la moyenne d'âge est de ${averageAgeFemale.toString()} ans, la plus jeune a $ageMinFemale ans et la plus ancienne a $ageMaxFemale ans. \n\nNombre d'utilisateurs réguliers : $numberOfRegular.\nNombre d'utilisateurs ponctuels : $numberOfPonctual. \n\nNombre de connexions totales : $totalConnexionNumber.\nMoyenne du nombre de connexions des utilisateurs : $averageConnexionNumber. \nMoyenne du nombre de connexion par utilisateur régulier: $averageConnexionsOfRegulars. \nMoyenne du nombre de connexions par utilisateur ponctuel : $averageConnexionsOfPonctuals.";
     } else if (averageAgeMale == 0) {
       pdfAgeText =
-          "Répartition des utilisateurs : \nNombre d'utilisateurs s'étant connectés au moins une fois en $monthString ${year.toString()} : ${userNumber.toString()}.\n$numberOfMales (${percentageMale.toString()}%) sont des hommes, et ${(userNumber - numberOfMales).toString()} (${(100 - percentageMale).toString()}%) sont des femmes.\n\n  \nÂge des utilisateurs : \nMoyenne d'âge des utilisateurs : ${averageAge.toString()} ans, le plus jeune a $ageMin ans et le plus âgé a $ageMax ans. \nFemmes : la moyenne d'âge est de ${averageAgeFemale.toString()} ans, la plus jeune a $ageMinFemale ans et la plus ancienne a $ageMaxFemale ans. \n\nNombre d'utilisateurs réguliers : $numberOfRegular.\nNombre d'utilisateurs ponctuels : $numberOfPonctual. \n\nNombre de connexions totales : $totalConnexionNumber. \nMoyenne du nombre de connexions des utilisateurs : $AverageConnexionNumber. \nMoyenne du nombre de connexion par utilisateur régulier: $AverageConnexionsOfRegulars. \nMoyenne du nombre de connexions par utilisateur ponctuel : $AverageConnexionsOfPonctuals.";
+          "Répartition des utilisateurs : \nNombre d'utilisateurs s'étant connectés au moins une fois en $monthString ${year.toString()} : ${userNumber.toString()}.\n$numberOfMales (${percentageMale.toString()}%) sont des hommes, et ${(userNumber - numberOfMales).toString()} (${(100 - percentageMale).toString()}%) sont des femmes.\n\n  \nÂge des utilisateurs : \nMoyenne d'âge des utilisateurs : ${averageAge.toString()} ans, le plus jeune a $ageMin ans et le plus âgé a $ageMax ans. \nFemmes : la moyenne d'âge est de ${averageAgeFemale.toString()} ans, la plus jeune a $ageMinFemale ans et la plus ancienne a $ageMaxFemale ans. \n\nNombre d'utilisateurs réguliers : $numberOfRegular.\nNombre d'utilisateurs ponctuels : $numberOfPonctual. \n\nNombre de connexions totales : $totalConnexionNumber. \nMoyenne du nombre de connexions des utilisateurs : $averageConnexionNumber. \nMoyenne du nombre de connexion par utilisateur régulier: $averageConnexionsOfRegulars. \nMoyenne du nombre de connexions par utilisateur ponctuel : $averageConnexionsOfPonctuals.";
     } else {
       pdfAgeText =
-          "Répartition des utilisateurs : \nNombre d'utilisateurs s'étant connectés au moins une fois en $monthString ${year.toString()} : ${userNumber.toString()}.\n$numberOfMales (${percentageMale.toString()}%) sont des hommes, et ${(userNumber - numberOfMales).toString()} (${(100 - percentageMale).toString()}%) sont des femmes.\n\n  \nÂge des utilisateurs : \nMoyenne d'âge des utilisateurs : ${averageAge.toString()} ans, le plus jeune a $ageMin ans et le plus âgé a $ageMax ans. \nHommes : la moyenne d'âge est de ${averageAgeMale.toString()} ans, le plus jeune a $ageMinMale ans et le plus ancien a $ageMaxMale ans. \n\nNombre d'utilisateurs réguliers : $numberOfRegular.\nNombre d'utilisateurs ponctuels : $numberOfPonctual. \n\nNombre de connexions totales : $totalConnexionNumber.\nMoyenne du nombre de connexions des utilisateurs : $AverageConnexionNumber. \nMoyenne du nombre de connexion par utilisateur régulier: $AverageConnexionsOfRegulars. \nMoyenne du nombre de connexions par utilisateur ponctuel : $AverageConnexionsOfPonctuals.";
+          "Répartition des utilisateurs : \nNombre d'utilisateurs s'étant connectés au moins une fois en $monthString ${year.toString()} : ${userNumber.toString()}.\n$numberOfMales (${percentageMale.toString()}%) sont des hommes, et ${(userNumber - numberOfMales).toString()} (${(100 - percentageMale).toString()}%) sont des femmes.\n\n  \nÂge des utilisateurs : \nMoyenne d'âge des utilisateurs : ${averageAge.toString()} ans, le plus jeune a $ageMin ans et le plus âgé a $ageMax ans. \nHommes : la moyenne d'âge est de ${averageAgeMale.toString()} ans, le plus jeune a $ageMinMale ans et le plus ancien a $ageMaxMale ans. \n\nNombre d'utilisateurs réguliers : $numberOfRegular.\nNombre d'utilisateurs ponctuels : $numberOfPonctual. \n\nNombre de connexions totales : $totalConnexionNumber.\nMoyenne du nombre de connexions des utilisateurs : $averageConnexionNumber. \nMoyenne du nombre de connexion par utilisateur régulier: $averageConnexionsOfRegulars. \nMoyenne du nombre de connexions par utilisateur ponctuel : $averageConnexionsOfPonctuals.";
     }
 
     PdfTextElement textElement = PdfTextElement(
@@ -154,10 +154,10 @@ class MonthStatsScreen extends StatelessWidget {
       numberOfPonctual = users.length - numberOfRegular;
 
       totalConnexionNumber = returnNumberOfConnexions(users);
-      AverageConnexionNumber = returnAverageConnexionsMonth(users);
-      AverageConnexionsOfPonctuals =
+      averageConnexionNumber = returnAverageConnexionsMonth(users);
+      averageConnexionsOfPonctuals =
           returnAverageConnexionsOfPonctualsMonth(users);
-      AverageConnexionsOfRegulars =
+      averageConnexionsOfRegulars =
           returnAverageConnexionsOfRegularsMonth(users);
     }
   }
